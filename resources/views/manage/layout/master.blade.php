@@ -36,6 +36,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
   <!--===============================================================================================-->
   <link href="master/build/css/mystyle.css" rel="stylesheet">
+  @yield('css')
 </head>
 <body class="nav-md" style="font-family: 'Dancing Script', cursive;">
   <div class="container body">
@@ -54,7 +55,7 @@
       <!--================================Page Header======================================-->
 
       <!--================================Page Content=====================================-->
-      
+
       @yield('content')
 
       <!--================================Page Content=====================================-->
@@ -99,5 +100,6 @@
     format: 'mm/dd/yyyy',
   });
   </script>
+  @yield('script')
 </body>
 </html>
