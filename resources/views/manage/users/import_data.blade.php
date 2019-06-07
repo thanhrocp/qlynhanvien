@@ -16,13 +16,12 @@
 						<hr>
 						<form method="post" enctype="multipart/form-data" action="{{route('importUser')}}">
 							@csrf
-							<input type="file" id="real-file" name="excel_user" class="hidden" />
+							<input type="file" id="real-file" name="ExcelUser" class="hidden" />
 							<button type="button" id="custom-button">Chọn file</button>
-							<span id="custom-text">No file chosen, yet.</span>
-
-							@if($errors->has('excel_user'))
-								<p style="color:red"> {{ $errors->first('excel_user') }} </p>
-							@endif
+							<span id="custom-text">Chưa chọn file.</span>
+								@foreach($errors->all() as $errors)
+								<p style="color:red"> {{ $errors }} </p>
+								@endforeach
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-xs">Upload <i class="fa fa-upload"></i></button>
 							</div>
