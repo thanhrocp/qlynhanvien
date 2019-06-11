@@ -32,7 +32,7 @@
                 <thead>
                   <tr class="headings">
                     <th>
-                        <button title="Reset password" class="btn btn-success btn-xs" type="submit">Reset</button>
+                      <button title="Reset password" class="btn btn-success btn-xs" type="submit">Reset</button>
                     </th>
                     <th class="column-title">Số thứ tự </th>
                     <th class="column-title">Tên tài khoản</th>
@@ -58,8 +58,8 @@
                     <td>{{ $lt->permission }}</td>
                     <td>
                       <?php
-echo Carbon\Carbon::createFromTimestamp(strtotime($lt->created_at))->diffForHumans();
-?>
+                      echo Carbon\Carbon::createFromTimestamp(strtotime($lt->created_at))->diffForHumans();
+                      ?>
                     </td>
                     <td><a class="btn btn-info btn-xs" href="{{url('users/edit',$lt->id)}}"><i class="fa fa-pencil"></i></a></td>
                     <td><a class="btn btn-danger btn-xs delete_users" data-id="{{$lt->id}}"><i class="fa fa-close"></i></a></td>

@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Employees extends Model {
 	protected $table = 'employee';
 
+	protected $fillable = [
+		'depart_id', 'user_id', 'birth_date', 'first_name', 'last_name', 'gender', 'education',
+		'identity_card', 'dateofissue', 'issued_by', 'religion', 'religion', 'marital_status'
+	];
+
 	public function users() {
 		return $this->hasOne('App\User', 'user_id', 'id');
 	}

@@ -42,6 +42,7 @@ class UserController extends Controller {
 		Alert::success('Thông báo ! Thêm mới thành công');
 		return back();
 	}
+	
 	public function getLogin() {
 		return view('manage.login');
 	}

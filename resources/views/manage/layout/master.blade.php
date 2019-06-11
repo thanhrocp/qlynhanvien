@@ -38,7 +38,7 @@
   <link href="master/build/css/mystyle.css" rel="stylesheet">
   @yield('css')
 </head>
-<body class="nav-md" style="font-family: 'Dancing Script', cursive;">
+<body class="nav-md">
   <div class="container body">
     <div class="main_container">
 

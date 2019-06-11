@@ -4,6 +4,8 @@
  <div class="right_col" role="main">
   <div class="">
     <div class="row">
+      <form method="POST" enctype="multipart/form-data" action="{{route('employList')}}">
+        {!! csrf_field() !!}
       <div class="col-md-12 col-sm-12 col-xs-12">
        <div class="panel panel-success">
         <div class="panel-heading text-right">
@@ -11,12 +13,15 @@
           <a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-arrows-h"></i></a>
           <a class="btn btn-success btn-xs"><i class="fa fa-user"> Employee </i></a>
         </div>
-        <div class="panel-body"><a href="{{url('employees/add')}}" title="Thêm mới" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></a>
-         <input type="file" id="real-file" class="hidden" />
-         <button type="button" id="custom-button">CHOOSE A FILE</button>
+        <div class="panel-body">
+         <input type="file" id="real-file" class="hidden" name="EmployExcel" />
+         <button type="button" class="btn btn-success" id="custom-button">CHOOSE A FILE</button>
          <span id="custom-text">No file chosen, yet.</span>
+         <button class="btn btn-success" type="submit">UPLOAD</button>
+          @error('EmployExcel')
+          <p class="text-danger">{{ $message }}</p>
+          @enderror
        </div>
-
      </div>
      <div class="x_panel">
       <div class="x_title">
@@ -60,14 +65,14 @@
                 <td>{{ $lt->full_name }}</td>
                 <td>
                   <?php
-echo Carbon\Carbon::create($lt->birth_date)->toFormattedDateString();
-?>
+                  echo Carbon\Carbon::create($lt->birth_date)->toFormattedDateString();
+                  ?>
                 </td>
                 <td>{{ $lt->sex }}</td>
                 <td>
                   <?php
-echo Carbon\Carbon::createFromTimestamp(strtotime($lt->created_at))->diffForHumans();
-?>
+                  echo Carbon\Carbon::createFromTimestamp(strtotime($lt->created_at))->diffForHumans();
+                  ?>
                 </td>
                 <td><a class="btn btn-success btn-xs" href="#modal-info{{$lt->id}}" data-toggle="modal"><i class="fa fa-link"></i></a></td>
                 <td><a class="btn btn-info btn-xs" href="{{url('employees/edit',$lt->id)}}"><i class="fa fa-pencil"></i></a></td>
@@ -106,6 +111,43 @@ echo Carbon\Carbon::createFromTimestamp(strtotime($lt->created_at))->diffForHuma
         </div>
       </div>
     </div>
+  </form>
   </div>
 </div>
+@endsection
+@section('css')
+<style type="text/css">
+ 
+  #custom-button:hover {
+    background-color: #00b28f;
+  }
+
+  #custom-text {
+    margin-left: 10px;
+    font-family: sans-serif;
+    color: #aaa;
+  }
+</style>
+@endsection
+@section('script')
+<script type="text/javascript">
+  const realFileBtn = document.getElementById("real-file");
+  const customBtn = document.getElementById("custom-button");
+  const customTxt = document.getElementById("custom-text");
+
+  customBtn.addEventListener("click", function() {
+    realFileBtn.click();
+  });
+
+  realFileBtn.addEventListener("change", function() {
+    if (realFileBtn.value) {
+      customTxt.innerHTML = realFileBtn.value.match(
+        /[\/\\]([\w\d\s\.\-\(\)]+)$/
+        )[1];
+    } else {
+      customTxt.innerHTML = "No file chosen, yet.";
+    }
+  });
+
+</script>
 @endsection
