@@ -9,22 +9,26 @@ use DB;
 use Illuminate\Http\Request;
 
 class DepartController extends Controller {
-	public function __construct(Depart $depart) {
+	public function __construct(Depart $depart) 
+	{
 		$this->depart = $depart;
 		$this->middleware('adminrole');
 	}
 
-	public function index() {
+	public function index() 
+	{
 		$list_depart = $this->depart->getListDepartments();
 
 		return view('manage.departments.list', ['list' => $list_depart]);
 	}
 
-	public function create() {
+	public function create() 
+	{
 		return view('manage.departments.add');
 	}
 
-	public function store(DepartRequest $request) {
+	public function store(DepartRequest $request) 
+	{
 		DB::table('departments')->insert($request->except('_token'));
 
 		ALert::success('Thông báo ! Thêm mới thành công');
@@ -32,13 +36,15 @@ class DepartController extends Controller {
 		return back();
 	}
 
-	public function edit($id) {
+	public function edit($id) 
+	{
 		$edit_depart = $this->depart->getEditDepartments($id)->first();
 
 		return view('manage.departments.edit', compact('edit_depart'));
 	}
 
-	public function update(DepartRequest $request, $id) {
+	public function update(DepartRequest $request, $id) 
+	{
 		$edit_depart = Depart::where('id', $id)->first();
 
 		$edit_depart->depart_name = $request->depart_name;
@@ -51,7 +57,8 @@ class DepartController extends Controller {
 		return redirect('departments/edit/' . $id);
 	}
 
-	public function destroy($id) {
+	public function destroy($id) 
+	{
 		if (isset($id)) {
 			$delete_depart = Depart::where('id', $id)->first();
 			$delete_depart->delete($id);
@@ -61,7 +68,8 @@ class DepartController extends Controller {
 		}
 	}
 	
-	public function deleteAll(Request $request) {
+	public function deleteAll(Request $request) 
+	{
 		$ids = $request->input('departdelete', []);
 		DB::table('departments')->whereIn('id', $ids)->delete();
 		Alert::success('Xóa thành công');

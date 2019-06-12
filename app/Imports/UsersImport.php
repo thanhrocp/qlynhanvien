@@ -23,7 +23,8 @@ class UsersImport implements WithMappedCells, ToModel, WithLimit, WithBatchInser
         ];
     }
 
-	public function model(array $row) {
+	public function model(array $row) 
+	{
 		 if(empty($row[1]) || empty($row[2])) {
             return false;
         }
@@ -33,18 +34,21 @@ class UsersImport implements WithMappedCells, ToModel, WithLimit, WithBatchInser
 		]);
 	}
 
-	public function rules(): array{
+	public function rules(): array 
+	{
 		return [
 			'name' => 'required',
 			'email' => 'required|email|unique:users,email',
 		];
 	}
 
-	public function limit(): int {
+	public function limit(): int 
+	{
 		return 5;
 	}
 
-    public function customValidationMessages() {
+    public function customValidationMessages() 
+    {
         return [
             'name.required' => 'Tên không được để trống',
             'email.required' => 'Email không được để trống',

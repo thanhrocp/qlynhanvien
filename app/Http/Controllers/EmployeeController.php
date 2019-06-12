@@ -11,30 +11,36 @@ use Illuminate\Http\Request;
 use Image;
 use Exception;
 
-class EmployeeController extends Controller {
-	public function __construct() {
+class EmployeeController extends Controller 
+{
+	public function __construct() 
+	{
 		$this->middleware('adminrole');
 	}
 	/*-------------get Info-------------*/
-	public function getInfo() {
+	public function getInfo() 
+	{
 		return Employees::join('departments', 'employee.depart_id', '=', 'departments.id')
 		->select(DB::raw('CONCAT(employee.first_name," ",employee.last_name) as full_name'),
 			DB::raw('CASE WHEN employee.gender=1 THEN "Nam" ELSE "Nữ" END as sex'),
 			'employee.*', 'departments.depart_name');
 	}
 	/*-------------show list-------------*/
-	public function index() {
+	public function index() 
+	{
 		# code...
 		$list = $this->getInfo()->get();
 
 		return view('manage.employees.list', ['list' => $list]);
 	}
 	/*-------------show form add----------*/
-	public function create() {
+	public function create() 
+	{
 		return view('manage.employees.add');
 	}
 	/*-------------Create employees-------*/
-	public function store(EmployeeRequest $request) {
+	public function store(EmployeeRequest $request) 
+	{
 		DB::beginTransaction();
 		try {
 			$add = new Employees;
@@ -54,24 +60,17 @@ class EmployeeController extends Controller {
 			if ($request->hasFile('avatar')) {
 				if ($request->file('avatar')->isValid()) {
 					$file_upload = $request->file('avatar');
-
 					$extension = $file_upload->getClientOriginalExtension();
-
 					$file_name = time() . "_" . str_random(5) . "_" . rand(1111, 9990) . "." . $extension;
-
 					$save_file = 'upload/avatar/' . $file_name;
-
 					Image::make($file_upload)->resize(300, 300)->save($save_file);
-
 					$add->avatar = $file_name;
 				}
 			} else {
 				$add->avatar = "";
 			}
 			DB::commit();
-
 			$add->save();
-
 			Alert::success('Thông báo ! Thêm mới thành công');
 			return back();
 		} catch (Exception $e) {
@@ -82,7 +81,8 @@ class EmployeeController extends Controller {
 		}
 	}
 	/*-------------show form edit employees-------*/
-	public function edit($id) {
+	public function edit($id) 
+	{
 		if (isset($id)) {
 			$update = Employees::findOrFail($id);
 
@@ -91,7 +91,8 @@ class EmployeeController extends Controller {
 		abort(404);
 	}
 	/*-------------update employee-------------*/
-	public function update(Request $request, $id) {
+	public function update(Request $request, $id) 
+	{
 		$edit = Employees::find($id);
 		$edit->depart_id = $request->depart_id;
 		$edit->birth_date = $request->birth_date;
@@ -122,7 +123,8 @@ class EmployeeController extends Controller {
 		return back();
 	}
 
-	public function destroy($id) {
+	public function destroy($id) 
+	{
 		if (isset($id)) {
 			$delete = Employees::find($id);
 			File::delete("upload/avatar/" . $delete->avatar);

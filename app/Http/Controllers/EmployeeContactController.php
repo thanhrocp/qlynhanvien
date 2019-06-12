@@ -7,9 +7,11 @@ use App\Http\Requests\EmployContactRequest;
 use App\Model\EmployContact;
 use DB;
 
-class EmployeeContactController extends Controller {
+class EmployeeContactController extends Controller 
+{
 	/*-------------get Info contact-------------*/
-	public function getInfo($id) {
+	public function getInfo($id) 
+	{
 		return EmployContact::where('employ_id', $id)->first();
 	}
 	/*-------------show form update contact-------------*/
@@ -18,7 +20,8 @@ class EmployeeContactController extends Controller {
 		return view('manage.employees.add_contact', ['info' => $info]);
 	}
 	/*-------------Update employee contact-------------*/
-	public function update(EmployContactRequest $request, $id) {
+	public function update(EmployContactRequest $request, $id) 
+	{
 		$checkExists = DB::table('employ_contact')->where('employ_id', $id)->count();
 
 		if ($checkExists == 0) {

@@ -17,12 +17,14 @@ class ImportUserController extends Controller {
 		$this->users = $users;
 	}
 
-	public function getImport() {
+	public function getImport()
+	{
 		# code...
 		return view('manage.users.import_data');
 	}
 	/*-------Import Excel List Employees*/
-	public function postImport(Request $request) {
+	public function postImport(Request $request)
+	{
 		$validator = Validator::make($request->all(), [
 			'ExcelUser' => 'required|mimes:xls,xlsx',
 		], [
@@ -65,12 +67,10 @@ class ImportUserController extends Controller {
 					}
 				}
 			} catch (ValidationException $e) {
-				$user  = new UsersImport;
-
-				$fail = $user->import($request->file('ExcelUser'));
+				$fail = $this->user->import($request->file('ExcelUser'));
 				$error = $fail->failures();
 				foreach ($error as $errors) {
-					dd($errors);
+					//
 				}
 			}
 			Alert::success('Upload thành công');
