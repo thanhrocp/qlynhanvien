@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateEmployees extends Migration
 {
@@ -16,22 +17,36 @@ class CreateEmployees extends Migration
         Schema::create('employee', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('depart_id')->unsigned();
-            $table->foreign('depart_id')->references('id')->on('departments')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('birth_date');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('avatar');
-            $table->string('gender');
-            $table->string('identity_card');
-            $table->string('dateofissue');
-            $table->string('issued_by');
-            $table->string('religion');
-            $table->string('nation');
-            $table->string('marital_status');
+            $table->string('birth_date')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('identity_card')->nullable();
+            $table->string('dateofissue')->nullable();
+            $table->string('issued_by')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('nation')->nullable();
+            $table->string('marital_status')->nullable();
             $table->timestamps();
         });
+
+        DB::table('employee')->insert([
+            'depart_id' => 1,
+            'user_id' => 1,
+            'birth_date' => '25-10-1997',
+            'first_name' => 'Dư Công',
+            'last_name' => 'Thành',
+            'avatar' => 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg',
+            'gender' => '1',
+            'identity_card' => '',
+            'dateofissue' => '',
+            'issued_by' => '',
+            'religion' => '',
+            'nation' => '',
+            'marital_status' => ''
+        ]);
     }
 
     /**

@@ -15,6 +15,8 @@
   <!--===============================================================================================-->
   <link href="master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!--===============================================================================================-->
+  <link href="master/docs/fonts/css/ins2wgm.css" rel="stylesheet">
+  <!--===============================================================================================-->
   <link href="master/docs/css/sweetalert2.min.css" rel="stylesheet">
   <!--===============================================================================================-->
   <link href="master/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
@@ -35,7 +37,7 @@
   <!--===============================================================================================-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
   <!--===============================================================================================-->
-  <link href="master/build/css/mystyle.css" rel="stylesheet">
+  <link href="master/build/css/masterStyle.css" rel="stylesheet">
   @yield('css')
 </head>
 <body class="nav-md">

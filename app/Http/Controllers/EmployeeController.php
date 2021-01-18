@@ -13,10 +13,6 @@ use Exception;
 
 class EmployeeController extends Controller 
 {
-	public function __construct() 
-	{
-		$this->middleware('adminrole');
-	}
 	/*-------------get Info-------------*/
 	public function getInfo() 
 	{

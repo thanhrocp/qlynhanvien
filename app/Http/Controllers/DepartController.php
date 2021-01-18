@@ -3,28 +3,29 @@
 namespace App\Http\Controllers;
 
 use Alert;
-use App\Http\Requests\DepartRequest;
-use App\Model\Depart;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\DepartRequest;
+use App\Model\Department;
+use App\Http\Repository\DepartmentRepository;
 
 class DepartController extends Controller {
-	public function __construct(Depart $depart) 
+	public function __construct(Department $depart) 
 	{
 		$this->depart = $depart;
-		$this->middleware('adminrole');
 	}
 
 	public function index() 
 	{
-		$list_depart = $this->depart->getListDepartments();
+		$departmentRepository = new DepartmentRepository();
+		$result = $departmentRepository->getListDepartment();
 
-		return view('manage.departments.list', ['list' => $list_depart]);
+		return view('manage.departments.list', ['list' => $result]);
 	}
 
 	public function create() 
 	{
-		return view('manage.departments.add');
+		return view('manage.departments.create');
 	}
 
 	public function store(DepartRequest $request) 
@@ -38,9 +39,10 @@ class DepartController extends Controller {
 
 	public function edit($id) 
 	{
-		$edit_depart = $this->depart->getEditDepartments($id)->first();
+		$departmentRepository = new DepartmentRepository();
+		$result = $departmentRepository->getDetailDepartment($id);
 
-		return view('manage.departments.edit', compact('edit_depart'));
+		return view('manage.departments.edit', ['result' => $result]);
 	}
 
 	public function update(DepartRequest $request, $id) 

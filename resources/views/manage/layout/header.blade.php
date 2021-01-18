@@ -9,12 +9,12 @@
         <li class="">
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <?php $avatar = Auth::user() ?>
-            <img src="upload/avatar/{{isset($avatar)?$avatar->employees->avatar:null}}" alt="">
+            <img src="{{$avatar->employees->avatar ?? null}}" alt="">
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">
             <li><a href="{{route('personal')}}"><i class="fa fa-user pull-right"></i> Cá nhân</a></li>
-            <li><a href="{{route('logout')}}"><i class="fa fa-power-off pull-right"></i> Đăng xuất</a></li>
+            <li><a href="{{URL::to('/logout')}}"><i class="fa fa-power-off pull-right"></i> Đăng xuất</a></li>
           </ul>
         </li>
         <li role="presentation" class="dropdown">

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateUsersTable extends Migration
 {
@@ -21,10 +22,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('change_password')->nullable();
             $table->integer('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('role');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('users')->insert([
+            'name' => 'thanhdc2',
+            'email' => 'thanhdc2@rikkeisoft.com',
+            'password' => bcrypt('thanh123'),
+            'role_id' => 1
+        ]);
     }
 
     /**

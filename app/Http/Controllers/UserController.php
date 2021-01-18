@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Alert;
 use App\Http\Requests\UserRequest;
 use App\User;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 use Mail;
-use Redirect;
 
 class UserController extends Controller {
 	/*-------------show info user------------------*/
@@ -20,14 +18,19 @@ class UserController extends Controller {
 			ELSE "Admin" END as permission'),
 			'users.name', 'users.email', 'users.id', 'users.created_at');
 	}
+
 	public function index() {
 		$list = $this->getInfo()->paginate(5);
 		return view('manage.users.list', ['list' => $list]);
 	}
-	/*-------------show form add user------------------*/
+
+	/**
+	 * @return \Illuminate\View\View
+	 */
 	public function create() {
 		return view('manage.users.add');
 	}
+
 	/*-------------create user------------------*/
 	public function store(UserRequest $request) {
 		$add_user = new User;
@@ -43,9 +46,13 @@ class UserController extends Controller {
 		return back();
 	}
 	
-	public function getLogin() {
+	/**
+	 * @return \Illuminate\View\View
+	 */
+	public function login() {
 		return view('manage.login');
 	}
+
 	/*-------------get Info login------------------*/
 	protected function infoLogin(Request $req) {
 		return [
@@ -53,32 +60,30 @@ class UserController extends Controller {
 			'password' => $req->password,
 		];
 	}
-	/*-------------Post login------------------*/
-	public function postLogin(Request $req) {
-		$remember = $req->has('remember') ? true : false;
 
-		if (Auth::attempt($this->infoLogin($req), $remember)) {
-			if (Auth::user()->change_password == 0) {
-				return redirect(route('changepass'));
-			} else {
-				return redirect('home');
-			}
+	/**
+	 * @param \Illuminate\Http\Request $request
+	 * 
+	 * @return response
+	 */
+	public function postLogin(Request $request) {
+		$remember = $request->has('remember') ? true : false;
+		if (Auth::attempt($this->infoLogin($request), $remember)) {
+			return redirect('home');
 		} else {
 			Alert::success('Không cho vào');
-
 			return redirect()->back();
 		}
 	}
-	/*-------------Get logout------------------*/
-	public function getLogout(Request $req) {
+
+	/**
+	 * @return response
+	 */
+	public function logout() {
 		Auth::logout();
-
-		$req->session()->flush();
-
-		$req->session()->invalidate();
-
-		return redirect(\URL::previous());
+		return redirect('/');
 	}
+
 	/*-------------Delete user------------------*/
 	public function destroy($id) {
 		$delete_user = User::findOrFail($id);

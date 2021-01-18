@@ -4,8 +4,6 @@ namespace App\Imports;
 
 use App\Model\Employees;
 use Maatwebsite\Excel\Concerns\ToModel;
-use App\User;
-use App\Model\Depart;
 
 class EmployeesImport implements ToModel
 {

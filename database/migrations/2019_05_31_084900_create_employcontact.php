@@ -16,7 +16,6 @@ class CreateEmploycontact extends Migration
         Schema::create('employ_contact', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employ_id')->unsigned();
-            $table->foreign('employ_id')->references('id')->on('employee')->onDelete('cascade');
             $table->string('ct_phone')->nullable();
             $table->string('ct_email')->nullable();
             $table->string('ct_yahoo')->nullable();

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use DB;
 
-class Depart extends Model
+class Department extends Model
 {
     protected $table = 'departments';
 

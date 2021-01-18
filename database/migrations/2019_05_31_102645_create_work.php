@@ -16,16 +16,15 @@ class CreateWork extends Migration
         Schema::create('employ_work', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employ_id')->unsigned();
-            $table->foreign('employ_id')->references('id')->on('employee')->onDelete('cascade'); 
-            $table->string('work_code');
-            $table->string('work_email');
-            $table->string('probationary_day');
-            $table->string('joining_date');
-            $table->string('contract_type');
-            $table->string('bank_account');
-            $table->string('bank_name');
-            $table->string('day_off');
-            $table->string('reason_leave');
+            $table->string('work_code')->nullable();
+            $table->string('work_email')->nullable();
+            $table->string('probationary_day')->nullable();
+            $table->string('joining_date')->nullable();
+            $table->string('contract_type')->nullable();
+            $table->string('bank_account')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('day_off')->nullable();
+            $table->string('reason_leave')->nullable();
             $table->timestamps();
         });
     }
