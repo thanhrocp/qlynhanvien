@@ -11,7 +11,7 @@
           <h2>List of departments</h2>
           <ul class="nav navbar-right panel_toolbox">
             <button class="btn btn-danger">
-              <a class="text-white" href="{{URL::to('/departments/create')}}">Thêm mới</a>
+              <a class="text-white" href="{{URL::to('/departments/new')}}">Thêm mới</a>
             </button>
           </ul>
           <div class="clearfix"></div>
@@ -33,19 +33,19 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($list as $key => $lt)
+                @foreach($result as $key => $item)
                 <tr class="odd pointer">
                   <td>{{ ++$key }}</td>
-                  <td>{{ $lt->depart_name }}</td>
-                  <td>{{ $lt->depart_phone }}</td>
-                  <td>{{ $lt->depart_number_persion }}</td>
+                  <td>{{ $item->depart_name }}</td>
+                  <td>{{ $item->depart_phone }}</td>
+                  <td>{{ $item->depart_number_persion }}</td>
                   <td>
-                    <?php 
-                    echo Carbon\Carbon::createFromTimestamp(strtotime($lt->created_at))->diffForHumans();
+                    <?php
+                    echo Carbon\Carbon::createFromTimestamp(strtotime($item->created_at))->diffForHumans();
                     ?>
                   </td>
-                  <td><a class="btn btn-info btn-xs" href="{{url('departments/edit',$lt->id)}}"><i class="fa fa-pencil"></i></a></td>
-                  <td><a class="btn btn-danger btn-xs delete_part" data-id="{{$lt->id}}"><i class="fa fa-close"></i></a></td>
+                  <td><a class="btn btn-info btn-xs" href="{{url('departments/edit',$item->id)}}"><i class="fa fa-pencil"></i></a></td>
+                  <td><a class="btn btn-danger btn-xs delete_part" data-id="{{$item->id}}"><i class="fa fa-close"></i></a></td>
                 </tr>
                 @endforeach
               </tbody>

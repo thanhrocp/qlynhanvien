@@ -2,42 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DepartRequest;
 use App\Model\Department;
-use App\Http\Repository\DepartmentRepository;
+use App\Http\Repositories\DepartmentRepository;
 
-class DepartController extends Controller {
-	public function __construct(Department $depart) 
-	{
-		$this->depart = $depart;
-	}
-
-	public function index() 
+class DepartController extends Controller
+{
+    /**
+     * Manage the list of departments
+     *
+     * @return \Illuminate\View\View
+     */
+	public function getList()
 	{
 		$departmentRepository = new DepartmentRepository();
 		$result = $departmentRepository->getListDepartment();
-
-		return view('manage.departments.list', ['list' => $result]);
+		return view('manage.departments.list', ['result' => $result]);
 	}
 
-	public function create() 
+    /**
+     * Manage additional departments
+     *
+     * @return \Illuminate\View\View
+     */
+	public function getNew()
 	{
-		return view('manage.departments.create');
+		return view('manage.departments.new');
 	}
 
-	public function store(DepartRequest $request) 
+    /**
+     * Handling new department
+     *
+     * @param \App\Http\Requests\DepartRequest $request
+     * @return \Illuminate\Routing\Redirector
+     */
+	public function postNew(DepartRequest $request)
 	{
-		DB::table('departments')->insert($request->except('_token'));
-
-		ALert::success('Thông báo ! Thêm mới thành công');
+        $formInput = $request->all();
+        $departmentRepository = new DepartmentRepository();
+        $departmentRepository->intert($formInput);
 
 		return back();
 	}
 
-	public function edit($id) 
+    /**
+     * Page display edit processing
+     *
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
+	public function getEdit(string $id)
 	{
 		$departmentRepository = new DepartmentRepository();
 		$result = $departmentRepository->getDetailDepartment($id);
@@ -45,36 +61,38 @@ class DepartController extends Controller {
 		return view('manage.departments.edit', ['result' => $result]);
 	}
 
-	public function update(DepartRequest $request, $id) 
+    /**
+     * Processing department editing
+     *
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
+	public function postEdit(DepartRequest $request, $id)
 	{
-		$edit_depart = Depart::where('id', $id)->first();
-
+		$edit_depart = Department::where('id', $id)->first();
 		$edit_depart->depart_name = $request->depart_name;
-		$edit_depart->depart_alias = str_slug($request->depart_name);
 		$edit_depart->depart_phone = $request->depart_phone;
 		$edit_depart->depart_note = $request->depart_note;
 		$edit_depart->save();
 
-		ALert::success('Thông báo ! Cập nhật thành công');
 		return redirect('departments/edit/' . $id);
 	}
 
-	public function destroy($id) 
+	public function destroy($id)
 	{
 		if (isset($id)) {
-			$delete_depart = Depart::where('id', $id)->first();
+			$delete_depart = Department::where('id', $id)->first();
 			$delete_depart->delete($id);
 			return response()->json(['success' => 1]);
 		} else {
 			abort(404);
 		}
 	}
-	
-	public function deleteAll(Request $request) 
+
+	public function deleteAll(Request $request)
 	{
 		$ids = $request->input('departdelete', []);
 		DB::table('departments')->whereIn('id', $ids)->delete();
-		Alert::success('Xóa thành công');
 		return back();
 	}
 }

@@ -1,7 +1,6 @@
  @extends('manage.layout.master')
  @section('title','Chỉnh sửa')
  @section('content')
- <!--======================================================================================================-->
  <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -24,10 +23,8 @@
         </div>
         <div class="x_content">
           <br />
-          <!--======================================================================================================-->
           <form class="form-horizontal form-label-left" method="POST">
             {!! csrf_field() !!}
-            <!--======================================================================================================-->
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên phòng / ban <span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -44,27 +41,24 @@
                 <input type="number" value="{{$result->depart_phone ?? null}}" placeholder="Nhập số điện thoại" name="depart_phone" class="form-control">
               </div>
               @if($errors->has('depart_phone'))
-              <p style="color:red"> {{ $errors->first('depart_phone')}}</p>  
+              <p style="color:red"> {{ $errors->first('depart_phone')}}</p>
               @endif
             </div>
-            <!--======================================================================================================-->
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Số nhân viên <span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="number" value="{{$result->depart_number_persion ?? null}}" placeholder="Nhập số điện thoại" name="depart_number_persion" class="form-control">
               </div>
               @if($errors->has('depart_number_persion'))
-              <p style="color:red"> {{ $errors->first('depart_number_persion')}}</p>  
+              <p style="color:red"> {{ $errors->first('depart_number_persion')}}</p>
               @endif
             </div>
-            <!--======================================================================================================-->
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Ghi chú <span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <textarea class="form-control" placeholder="Nhập ghi chú" name="depart_note">{{$result->depart_note ?? null}}</textarea>
               </div>
             </div>
-            <!--======================================================================================================-->
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                 <button type="submit" class="btn btn-success">Lưu</button>
@@ -72,11 +66,9 @@
               </div>
             </div>
           </form>
-        <!--======================================================================================================-->
         </div>
       </div>
     </div>
   </div>
 </div>
-<!--======================================================================================================-->
 @endsection

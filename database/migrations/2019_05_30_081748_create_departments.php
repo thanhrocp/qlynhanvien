@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Ulid\Ulid;
 
 class CreateDepartments extends Migration
 {
@@ -15,7 +16,7 @@ class CreateDepartments extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id', 26);
             $table->string('depart_name')->unique();
             $table->string('depart_phone');
             $table->string('depart_note');
@@ -25,19 +26,10 @@ class CreateDepartments extends Migration
         });
 
         DB::table('departments')->insert([
+            'id' => (string) Ulid::generate(),
             'depart_name' => 'Phòng nhân sự',
             'depart_phone' => '0971192594',
             'depart_note' => 'Phòng nhân sự',
-            'depart_number_persion' => '10',
-        ], [
-            'depart_name' => 'Phòng hành chính',
-            'depart_phone' => '0971192594',
-            'depart_note' => 'Phòng hành chính',
-            'depart_number_persion' => '10',
-        ], [
-            'depart_name' => 'Phòng bảo vệ',
-            'depart_phone' => '0971192594',
-            'depart_note' => 'Phòng bảo vệự',
             'depart_number_persion' => '10',
         ]);
     }

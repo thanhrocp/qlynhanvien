@@ -45,8 +45,10 @@ class UserController extends Controller {
 		Alert::success('Thông báo ! Thêm mới thành công');
 		return back();
 	}
-	
+
 	/**
+     *
+     *
 	 * @return \Illuminate\View\View
 	 */
 	public function login() {
@@ -63,8 +65,8 @@ class UserController extends Controller {
 
 	/**
 	 * @param \Illuminate\Http\Request $request
-	 * 
-	 * @return response
+	 *
+	 * @return \Illuminate\Routing\Redirector
 	 */
 	public function postLogin(Request $request) {
 		$remember = $request->has('remember') ? true : false;
@@ -77,7 +79,7 @@ class UserController extends Controller {
 	}
 
 	/**
-	 * @return response
+     * @return \Illuminate\Routing\Redirector
 	 */
 	public function logout() {
 		Auth::logout();

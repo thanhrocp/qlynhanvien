@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,19 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-/*--================================Login-Logout=========================================---*/
-
 Route::get('/', 'UserController@login');
 Route::post('/', 'UserController@postLogin');
 Route::get('/logout', 'UserController@logout');
 
 Route::group(['middleware' => 'adminrole'], function () {
 	Route::group(['prefix' => 'departments'], function () {
-		Route::get('/', ['as' => 'departList', 'uses' => 'DepartController@index']);
-		Route::get('create', ['as' => 'departAdd', 'uses' => 'DepartController@create']);
-		Route::post('create', ['as' => 'depart_Add', 'uses' => 'DepartController@store']);
-		Route::get('edit/{id}', ['as' => 'departEdit', 'uses' => 'DepartController@edit']);
-		Route::post('edit/{id}', ['as' => 'depart_Edit', 'uses' => 'DepartController@update']);
+		Route::get('/', ['as' => 'departList', 'uses' => 'DepartController@getList']);
+		Route::get('new', ['as' => 'departAdd', 'uses' => 'DepartController@getNew']);
+		Route::post('new', ['as' => 'depart_Add', 'uses' => 'DepartController@postNew']);
+		Route::get('edit/{id}', ['as' => 'departEdit', 'uses' => 'DepartController@getEdit']);
+		Route::post('edit/{id}', ['as' => 'depart_Edit', 'uses' => 'DepartController@postEdit']);
 		Route::get('delete/{id}', ['as' => 'departdelete', 'uses' => 'DepartController@destroy']);
 		Route::post('deleteAll', ['as' => 'depart_delete', 'uses' => 'DepartController@deleteAll']);
 	});
