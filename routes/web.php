@@ -22,6 +22,9 @@ Route::middleware('auth:web')->get('/departments/new', 'DepartmentController@get
 Route::middleware('auth:web')->post('/departments/new', 'DepartmentController@postNew');
 Route::middleware('auth:web')->get('/departments/edit/{id}', 'DepartmentController@getEdit');
 Route::middleware('auth:web')->post('/departments/edit/{id}', 'DepartmentController@postEdit');
+Route::middleware('auth:web')->get('/departments/detail', 'DepartmentController@getDetail');
+Route::middleware('auth:web')->post('/departments/detail', 'DepartmentController@postDetail');
+Route::middleware('auth:web')->get('/departments/complete', 'DepartmentController@getComplete');
 Route::middleware('auth:web')->get('/departments/delete/{id}', 'DepartmentController@getDelete');
 
 Route::group(['prefix' => 'users'], function () {

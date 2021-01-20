@@ -25,6 +25,7 @@
                   <th class="column-title">Tên phòng </th>
                   <th class="column-title">Số điện thoại </th>
                   <th class="column-title">Số nhân viên </th>
+                  <th class="column-title">Ghi chú </th>
                   <th class="column-title">Cập nhật </th>
                   <th class="column-title" colspan="3" style="width: 5%"><span class="nobr">Thao tác</span></th>
                   <th class="bulk-actions" colspan="9">
@@ -39,10 +40,9 @@
                   <td>{{ $item->depart_name }}</td>
                   <td>{{ $item->depart_phone }}</td>
                   <td>{{ $item->depart_number_persion }}</td>
+                  <td>{{ $item->depart_note }}</td>
                   <td>
-                    <?php
-                    echo Carbon\Carbon::createFromTimestamp(strtotime($item->created_at))->diffForHumans();
-                    ?>
+                    {{Carbon\Carbon::createFromTimestamp(strtotime($item->created_at))->diffForHumans()}}
                   </td>
                   <td><a class="btn btn-info btn-xs" href="{{url('departments/edit',$item->id)}}"><i class="fa fa-pencil"></i></a></td>
                   <td><a class="btn btn-danger btn-xs delete_part" data-id="{{$item->id}}"><i class="fa fa-close"></i></a></td>

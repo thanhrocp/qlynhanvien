@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DepartRequest;
 use App\Models\Department;
 use App\Http\Repositories\DepartmentRepository;
+use App\Http\Controllers\Base\AdminControllerBase;
 
-class DepartmentController extends Controller
+class DepartmentController extends AdminControllerBase
 {
     /**
      * Manage the list of departments
@@ -40,11 +41,8 @@ class DepartmentController extends Controller
      */
 	public function postNew(DepartRequest $request)
 	{
-        $formInput = $request->except('_token');
-        $departmentRepository = new DepartmentRepository();
-        $departmentRepository->intert($formInput);
-
-		return back();
+		$this->setSession('formInput', $request->except('_token'));
+		return redirect('/departments/detail');
 	}
 
     /**
@@ -76,6 +74,41 @@ class DepartmentController extends Controller
 		$edit_depart->save();
 
 		return redirect('departments/edit/' . $id);
+	}
+
+	/**
+     * Manage additional departments
+     *
+     * @return \Illuminate\View\View
+     */
+	public function getComplete()
+	{
+		return view('admin.departments.complete');
+	}
+
+	/**
+     * Manage additional departments
+     *
+     * @return \Illuminate\View\View
+     */
+	public function getDetail()
+	{
+		$result = $this->getSession('formInput');
+		return view('admin.departments.detail', ['result' => $result]);
+	}
+
+	/**
+     * Detail screen display
+     *
+     * @return \Illuminate\View\View
+     */
+	public function postDetail(Request $request)
+	{
+		$departmentRepository = new DepartmentRepository();
+		$departmentRepository->intert($this->getSession('formInput'));
+		$this->forgetSession('formInput');
+
+		return redirect('/departments/complete');
 	}
 
     /**
