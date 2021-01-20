@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alert;
-use App\Model\Employees;
+use App\Models\Employee;
 use Auth;
 use DB;
 use File;
@@ -14,25 +14,25 @@ class ProfileController extends Controller {
 	/*-----------get Info Personal-------------*/
 	public function getInfoPersonal() {
 		$user = Auth::user()->id;
-		return DB::table('employee')->join('users', 'employee.user_id', '=', 'users.id')
-			->join('departments', 'employee.depart_id', '=', 'departments.id')
+		return DB::table('employee')->join('users', 'employees.user_id', '=', 'users.id')
+			->join('departments', 'employees.depart_id', '=', 'departments.id')
 			->select(DB::raw('CASE WHEN users.role_id=1 THEN "Admin" WHEN users.role_id=2 THEN "Employee" ELSE "Member" END AS position '),
-				'employee.*', 'departments.depart_name', 'users.email')
-			->where('employee.user_id', $user);
+				'employees.*', 'departments.depart_name', 'users.email')
+			->where('employees.user_id', $user);
 	}
 	/*----------------Info Personal-------------*/
 	public function personal() {
 		# code...
 		$personal['personal'] = $this->getInfoPersonal()->first();
 
-		return view('manage.profile.personal', $personal);
+		return view('admin.profile.personal', $personal);
 	}
 	/*----------Update profile personal----------*/
 	public function update(Request $request) {
 
 		$user = Auth::user()->id;
 
-		$update = Employees::where('user_id', $user)->first();
+		$update = Employee::where('user_id', $user)->first();
 
 		$update->birth_date = $request->birth_date;
 		$update->first_name = $request->first_name;
@@ -74,21 +74,21 @@ class ProfileController extends Controller {
 	public function work() {
 		$work['work'] = $this->getInfoWork()->first();
 
-		return view('manage.profile.work', $work);
+		return view('admin.profile.work', $work);
 	}
 	/*--------get Info contact----------*/
 	public function getInfoContact() {
 		$user = Auth::user()->id;
 
-		return DB::table('employ_contact')->join('employee', 'employ_contact.employ_id', '=', 'employee.id')
-			->where('employee.user_id', $user);
+		return DB::table('employ_contact')->join('employee', 'employ_contact.employ_id', '=', 'employees.id')
+			->where('employees.user_id', $user);
 	}
 	/*--------show Info contact----------*/
 	public function contact() {
 		# code...
 		$contact['contact'] = $this->getInfoContact()->first();
 
-		return view('manage.profile.contact', $contact);
+		return view('admin.profile.contact', $contact);
 	}
 	/*--------update contact----------*/
 	public function contactUpdate(Request $request) {

@@ -3,34 +3,33 @@
 namespace App\Http\Repositories;
 
 use Illuminate\Support\Facades\DB;
-use App\Model\Department;
+use App\Models\Department;
 
-class DepartmentRepository {
+class DepartmentRepository
+{
     /**
      * get a list of departments
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getListDepartment()
+    public function getList()
     {
         $department = new Department();
-        $return =  $department->orderBy('id','desc')->paginate(10);
-
-        return $return;
+        $results =  $department->orderBy('id','desc')->paginate(10);
+        return $results;
     }
 
     /**
      * Get department detail
      *
      * @param string $id
-     * @return array $results
+     * @return array $result
      */
-    public function getDetailDepartment(string $id)
+    public function getDetail(string $id)
     {
         $department = new Department();
-        $results =  $department->where('id', $id)->first();
-
-        return $results;
+        $result =  $department->where('id', $id)->first();
+        return $result;
     }
 
     /**
@@ -41,10 +40,11 @@ class DepartmentRepository {
      */
     public function intert(array $formInput)
     {
-        $formInputSave = collect($formInput)->slice(1);
-        $deparment = new Department();
-        $model = DB::transaction(function () use ($deparment, $formInputSave) {
-            $result = $deparment->create($formInputSave->all());
+        $department = new Department();
+        $formInput = $department->autoSettingBy($formInput);
+
+        $model = DB::transaction(function () use ($department, $formInput) {
+            $result = $department->create($formInput);
             return $result;
         });
 

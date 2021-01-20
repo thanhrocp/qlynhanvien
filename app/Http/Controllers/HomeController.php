@@ -4,6 +4,6 @@ namespace App\Http\Controllers;
 
 class HomeController extends Controller {
 	public function index() {
-		return view('manage.home');
+		return view('admin.home');
 	}
 }

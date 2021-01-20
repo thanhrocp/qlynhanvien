@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Alert;
 use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 	/*-------------show info user------------------*/
 	protected function getInfo() {
 		return User::select(DB::raw('CASE WHEN users.role_id=1 THEN "Manage"
@@ -21,14 +21,14 @@ class UserController extends Controller {
 
 	public function index() {
 		$list = $this->getInfo()->paginate(5);
-		return view('manage.users.list', ['list' => $list]);
+		return view('admin.users.list', ['list' => $list]);
 	}
 
 	/**
 	 * @return \Illuminate\View\View
 	 */
 	public function create() {
-		return view('manage.users.add');
+		return view('admin.users.add');
 	}
 
 	/*-------------create user------------------*/
@@ -42,46 +42,16 @@ class UserController extends Controller {
 
 		$add_user->save();
 
-		Alert::success('Thông báo ! Thêm mới thành công');
 		return back();
 	}
 
 	/**
+     * Exit the session
      *
-     *
-	 * @return \Illuminate\View\View
-	 */
-	public function login() {
-		return view('manage.login');
-	}
-
-	/*-------------get Info login------------------*/
-	protected function infoLogin(Request $req) {
-		return [
-			'email' => $req->email,
-			'password' => $req->password,
-		];
-	}
-
-	/**
-	 * @param \Illuminate\Http\Request $request
-	 *
-	 * @return \Illuminate\Routing\Redirector
-	 */
-	public function postLogin(Request $request) {
-		$remember = $request->has('remember') ? true : false;
-		if (Auth::attempt($this->infoLogin($request), $remember)) {
-			return redirect('home');
-		} else {
-			Alert::success('Không cho vào');
-			return redirect()->back();
-		}
-	}
-
-	/**
      * @return \Illuminate\Routing\Redirector
 	 */
-	public function logout() {
+    public function logout()
+    {
 		Auth::logout();
 		return redirect('/');
 	}
@@ -100,7 +70,7 @@ class UserController extends Controller {
 	public function edit($id) {
 		$edit_user = User::findOrFail($id);
 
-		return view('manage.users.edit', ['edit_user' => $edit_user]);
+		return view('admin.users.edit', ['edit_user' => $edit_user]);
 	}
 	/*----------- Update user ------------*/
 	public function update(Request $request, $id) {
@@ -109,7 +79,6 @@ class UserController extends Controller {
 		$account->role_id = $request->role_id;
 		$account->password = bcrypt($request->password);
 		$account->save();
-		Alert::success('Thông báo ! Sửa tài khoản thành công');
 		return redirect('users/edit/' . $id);
 	}
 	/*------------reset passwor------------*/
@@ -124,15 +93,14 @@ class UserController extends Controller {
 			'password' => $rand_password,
 			'email' => $email,
 		];
-		Mail::send('manage.users.resetpass', $data, function ($mess) use ($email) {
+		Mail::send('admin.users.resetpass', $data, function ($mess) use ($email) {
 			$mess->to($email)->subject('Mật khẩu mới của bạn');
 		});
-		Alert::success('Reset mật khẩu thành công');
 		return redirect()->back();
 	}
 	/*-----------show Change pass------------*/
 	public function showChangePass() {
-		return view('manage.users.changepass');
+		return view('admin.users.changepass');
 	}
 	/*-----------Change pass------------*/
 	public function ChangePass(Request $request) {
@@ -147,7 +115,6 @@ class UserController extends Controller {
 		$change_pass->change_password = 1;
 		$change_pass->save();
 
-		Alert::success('Đổi mật khẩu thành công');
 		Auth::logout();
 		$request->flush();
 		return redirect('/');

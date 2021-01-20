@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Excel;
 use App\Imports\EmployeesImport;
-use App\Model\Employees;
+use App\Models\Employee;
 use Alert;
 
 class EmployImportController extends Controller
@@ -29,9 +29,9 @@ class EmployImportController extends Controller
 					if($employs[0] == "stt" || $employs[1] == "depart_id" || $employs[2] == "user_id") {
 						continue;
 					}
-					$check_exists = Employees::where('depart_id', $employs[1])->orWhere('user_id', $employs[2])->count();
+					$check_exists = Employee::where('depart_id', $employs[1])->orWhere('user_id', $employs[2])->count();
 					if($check_exists == 0) {
-						Employees::where('depart_id', $employs[1])->orWhere('user_id', $employs[2])->create([
+						Employee::where('depart_id', $employs[1])->orWhere('user_id', $employs[2])->create([
 							'depart_id' => $employs[1],
 							'user_id' => $employs[2],
 							'birth_date' => $employs[3],
@@ -47,7 +47,7 @@ class EmployImportController extends Controller
 							'marital_status' => $employs[13],
 						]);
 					} else {
-						Employees::where('depart_id', $employs[1])->orWhere('user_id', $employs[2])->update([
+						Employee::where('depart_id', $employs[1])->orWhere('user_id', $employs[2])->update([
 							'birth_date' => $employs[3],
 							'first_name' => $employs[4],
 							'last_name' => $employs[5],

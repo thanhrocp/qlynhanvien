@@ -23,7 +23,7 @@ class HasLogin
         }
         else
         {
-            return redirect(route('home'));
+            return redirect('/index');
         }
     }
 }

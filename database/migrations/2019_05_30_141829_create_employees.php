@@ -14,7 +14,7 @@ class CreateEmployees extends Migration
      */
     public function up()
     {
-        Schema::create('employee', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('depart_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -32,7 +32,7 @@ class CreateEmployees extends Migration
             $table->timestamps();
         });
 
-        DB::table('employee')->insert([
+        DB::table('employees')->insert([
             'depart_id' => 1,
             'user_id' => 1,
             'birth_date' => '25-10-1997',
@@ -56,6 +56,6 @@ class CreateEmployees extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee');
+        Schema::dropIfExists('employees');
     }
 }

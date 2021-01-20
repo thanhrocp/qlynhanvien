@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Employees;
+use App\Models\Employee;
 use Excel;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ExportController extends Controller implements FromCollection, WithHeadings 
+class ExportController extends Controller implements FromCollection, WithHeadings
 {
 	//
-	public function __construct(Employees $employ) 
+	public function __construct(Employees $employ)
 	{
 		$this->employ = $employ;
 	}
@@ -52,7 +52,7 @@ class ExportController extends Controller implements FromCollection, WithHeading
 		];
 	}
 	/*-------------Xuất file excoelo`----------*/
-	public function export() 
+	public function export()
 	{
 		return Excel::download(new ExportController(), 'dsnhanvien.Xlsx');
 	}

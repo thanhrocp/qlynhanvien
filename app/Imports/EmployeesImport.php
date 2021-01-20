@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Model\Employees;
+use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class EmployeesImport implements ToModel
@@ -14,7 +14,7 @@ class EmployeesImport implements ToModel
     */
     public function model(array $row)
     {
-        return new Employees([
+        return new Employee([
             'depart_id' => $row[1],
             'user_id' => $row[2],
             'birth_date' => $row[3],

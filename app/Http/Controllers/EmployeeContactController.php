@@ -4,23 +4,23 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Http\Requests\EmployContactRequest;
-use App\Model\EmployContact;
-use DB;
+use App\Models\EmployContact;
+use Illuminate\Support\Facades\DB;
 
-class EmployeeContactController extends Controller 
+class EmployeeContactController extends Controller
 {
 	/*-------------get Info contact-------------*/
-	public function getInfo($id) 
+	public function getInfo($id)
 	{
 		return EmployContact::where('employ_id', $id)->first();
 	}
 	/*-------------show form update contact-------------*/
 	public function index($id) {
 		$info = $this->getInfo($id);
-		return view('manage.employees.add_contact', ['info' => $info]);
+		return view('admin.employees.add_contact', ['info' => $info]);
 	}
 	/*-------------Update employee contact-------------*/
-	public function update(EmployContactRequest $request, $id) 
+	public function update(EmployContactRequest $request, $id)
 	{
 		$checkExists = DB::table('employ_contact')->where('employ_id', $id)->count();
 

@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 use Alert;
-use App\Model\EmployWork;
+use App\Models\EmployWork;
 use DB;
 use Illuminate\Http\Request;
 
-class EmployeeWorkController extends Controller 
+class EmployeeWorkController extends Controller
 {
 	/*--------------get info----------------*/
-	public function getInfo($id) 
+	public function getInfo($id)
 	{
 		return EmployWork::where('employ_id', $id)->first();
 	}
 	/*--------------show form----------------*/
-	public function index($id) 
+	public function index($id)
 	{
 		# code...
 		$info = $this->getInfo($id);
 
-		return view('manage.employees.add_work', ['info' => $info]);
+		return view('admin.employees.add_work', ['info' => $info]);
 	}
 	/*--------------update info work----------------*/
-	public function update(Request $request, $id) 
+	public function update(Request $request, $id)
 	{
 		$checkExists = DB::table('employ_work')->where('employ_id', $id)->count();
 

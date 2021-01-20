@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Salary;
+use App\Models\Salary;
 use DB;
 use Illuminate\Http\Request;
 use Validator;
@@ -29,7 +29,7 @@ class SalaryController extends Controller {
 	public function index() {
 		$info['info'] = $this->salary->getInfo()->get();
 
-		return view('manage.salary.list', $info);
+		return view('admin.salary.list', $info);
 	}
 
 	/**

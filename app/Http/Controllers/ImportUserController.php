@@ -20,7 +20,7 @@ class ImportUserController extends Controller {
 	public function getImport()
 	{
 		# code...
-		return view('manage.users.import_data');
+		return view('admin.users.import_data');
 	}
 	/*-------Import Excel List Employees*/
 	public function postImport(Request $request)
@@ -45,9 +45,9 @@ class ImportUserController extends Controller {
 				foreach ($users[0] as $user) {
 					if($user[0] == "stt" || $user[1] == "name" || $user[2] == "email") {
 						continue;
-					} 
+					}
 					unset($users[0][0]);
-					return view('manage.users.info_import_excel',compact('users'));
+					return view('admin.users.info_import_excel',compact('users'));
 					$check_exists = User::where('email', $user[2])->count();
 					if ($check_exists == 0) {
 						User::where('email', $user[2])->limit(false, 2)->create([
@@ -80,6 +80,6 @@ class ImportUserController extends Controller {
 
 	public function confirmExcel()
 	{
-		return view('manage.users.info_import_excel');
+		return view('admin.users.info_import_excel');
 	}
 }

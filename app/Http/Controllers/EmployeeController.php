@@ -4,42 +4,42 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Http\Requests\EmployeeRequest;
-use App\Model\Employees;
+use App\Models\Employee;
 use DB;
 use File;
 use Illuminate\Http\Request;
 use Image;
 use Exception;
 
-class EmployeeController extends Controller 
+class EmployeeController extends Controller
 {
 	/*-------------get Info-------------*/
-	public function getInfo() 
+	public function getInfo()
 	{
-		return Employees::join('departments', 'employee.depart_id', '=', 'departments.id')
-		->select(DB::raw('CONCAT(employee.first_name," ",employee.last_name) as full_name'),
-			DB::raw('CASE WHEN employee.gender=1 THEN "Nam" ELSE "Nữ" END as sex'),
-			'employee.*', 'departments.depart_name');
+		return Employee::join('departments', 'employees.depart_id', '=', 'departments.id')
+		->select(DB::raw('CONCAT(employees.first_name," ",employees.last_name) as full_name'),
+			DB::raw('CASE WHEN employees.gender=1 THEN "Nam" ELSE "Nữ" END as sex'),
+			'employees.*', 'departments.depart_name');
 	}
 	/*-------------show list-------------*/
-	public function index() 
+	public function index()
 	{
 		# code...
 		$list = $this->getInfo()->get();
 
-		return view('manage.employees.list', ['list' => $list]);
+		return view('admin.employees.list', ['list' => $list]);
 	}
 	/*-------------show form add----------*/
-	public function create() 
+	public function create()
 	{
-		return view('manage.employees.add');
+		return view('admin.employees.add');
 	}
 	/*-------------Create employees-------*/
-	public function store(EmployeeRequest $request) 
+	public function store(EmployeeRequest $request)
 	{
 		DB::beginTransaction();
 		try {
-			$add = new Employees;
+			$add = new Employee;
 			$add->depart_id = $request->depart_id;
 			$add->user_id = $request->user_id;
 			$add->birth_date = $request->birth_date;
@@ -77,19 +77,19 @@ class EmployeeController extends Controller
 		}
 	}
 	/*-------------show form edit employees-------*/
-	public function edit($id) 
+	public function edit($id)
 	{
 		if (isset($id)) {
-			$update = Employees::findOrFail($id);
+			$update = Employee::findOrFail($id);
 
-			return view('manage.employees.edit', ['update' => $update]);
+			return view('admin.employees.edit', ['update' => $update]);
 		}
 		abort(404);
 	}
 	/*-------------update employee-------------*/
-	public function update(Request $request, $id) 
+	public function update(Request $request, $id)
 	{
-		$edit = Employees::find($id);
+		$edit = Employee::find($id);
 		$edit->depart_id = $request->depart_id;
 		$edit->birth_date = $request->birth_date;
 		$edit->first_name = $request->first_name;
@@ -119,10 +119,10 @@ class EmployeeController extends Controller
 		return back();
 	}
 
-	public function destroy($id) 
+	public function destroy($id)
 	{
 		if (isset($id)) {
-			$delete = Employees::find($id);
+			$delete = Employee::find($id);
 			File::delete("upload/avatar/" . $delete->avatar);
 			$delete->delete($id);
 			return response()->json(['success' => 1]);
