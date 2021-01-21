@@ -32,9 +32,9 @@ class CreateUsersTable extends Migration
 
         DB::table('users')->insert([
             'id' => (string) Ulid::generate(),
-            'name' => 'thanhdc2',
-            'email' => 'thanhdc2@rikkeisoft.com',
-            'password' => bcrypt('thanh123'),
+            'name' => config('auth.admin_login.name'),
+            'email' => config('auth.admin_login.email'),
+            'password' => bcrypt(config('auth.admin_login.password')),
             'role_id' => 1,
             'created_by' => 'SYSTEM',
             'updated_by' => 'SYSTEM',

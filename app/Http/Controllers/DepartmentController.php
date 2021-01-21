@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\DepartRequest;
+use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use App\Http\Repositories\DepartmentRepository;
 use App\Http\Controllers\Base\AdminControllerBase;
@@ -36,12 +36,15 @@ class DepartmentController extends AdminControllerBase
     /**
      * Handling new department
      *
-     * @param \App\Http\Requests\DepartRequest $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Routing\Redirector
      */
-	public function postNew(DepartRequest $request)
+	public function postNew(Request $request)
 	{
-		$this->setSession('formInput', $request->except('_token'));
+        $this->setSession('formInput', $request->except('_token'));
+        $departmentRequest = new DepartmentRequest();
+        $departmentRequest->checkForSave($request);
+
 		return redirect('/departments/detail');
 	}
 
@@ -62,15 +65,18 @@ class DepartmentController extends AdminControllerBase
     /**
      * Processing department editing
      *
+     * @param \Illuminate\Http\Request $request
      * @param string $id
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Routing\Redirector
      */
-	public function postEdit(DepartRequest $request, $id)
+	public function postEdit(Request $request, string $id)
 	{
+        $departmentRequest = new DepartmentRequest();
+        $departmentRequest->checkForSave($request);
 		$edit_depart = Department::where('id', $id)->first();
 		$edit_depart->depart_name = $request->depart_name;
 		$edit_depart->depart_phone = $request->depart_phone;
-		$edit_depart->depart_note = $request->depart_note;
+        $edit_depart->depart_note = $request->depart_note;
 		$edit_depart->save();
 
 		return redirect('departments/edit/' . $id);
@@ -102,9 +108,9 @@ class DepartmentController extends AdminControllerBase
      *
      * @return \Illuminate\View\View
      */
-	public function postDetail(Request $request)
+	public function postDetail()
 	{
-		$departmentRepository = new DepartmentRepository();
+        $departmentRepository = new DepartmentRepository();
 		$departmentRepository->intert($this->getSession('formInput'));
 		$this->forgetSession('formInput');
 

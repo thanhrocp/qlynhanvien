@@ -100,4 +100,19 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Credentials login
+    |--------------------------------------------------------------------------
+    |
+    | You can set the system credentials here
+    |
+    */
+
+    'admin_login' => [
+        'name' => 'Admin',
+        'email' => 'admin@admin.com',
+        'password' => 'admin123'
+    ],
+
 ];

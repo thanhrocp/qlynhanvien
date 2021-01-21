@@ -22,7 +22,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên phòng / ban <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" value="{{old('depart_name')}}" required="required" class="form-control" name="depart_name">
+                <input type="text" value="{{old('depart_name')}}" class="form-control" name="depart_name">
               </div>
               @if($errors->has('depart_name'))
               <p style="color:red">{{$errors->first('depart_name')}}</p>
@@ -32,7 +32,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" value="{{old('depart_phone')}}" name="depart_phone" required="required" class="form-control">
+                <input type="number" value="{{old('depart_phone')}}" name="depart_phone" class="form-control">
               </div>
               @if($errors->has('depart_phone'))
               <p style="color:red"> {{ $errors->first('depart_phone')}}</p>
@@ -42,7 +42,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Số nhân viên <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" value="{{old('depart_number_persion')}}" name="depart_number_persion" required="required" class="form-control">
+                <input type="number" value="{{old('depart_number_persion')}}" name="depart_number_persion" class="form-control">
               </div>
             </div>
             <div class="form-group">

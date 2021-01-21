@@ -22,7 +22,7 @@
       <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
-          <li><a href="{{url('home')}}"><i class="fa fa-home"></i> Trang chủ </a></li>
+          <li><a href="{{url('index')}}"><i class="fa fa-home"></i> Trang chủ </a></li>
           {{-- @can('crud') --}}
           <li><a><i class="fa fa-edit"></i> Phòng ban<span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">

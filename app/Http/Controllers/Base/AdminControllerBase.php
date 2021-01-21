@@ -2,56 +2,63 @@
 
 namespace App\Http\Controllers\Base;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 
 class AdminControllerBase extends Controller
 {
     /**
-     * Get data from the session
+     * Get session
      *
      * @param string $key
      * @param  mixed  $default
      * @return mixed
      */
-    public function getSession(string $key, $default = null)
+    public function getSession(string $key)
     {
-        $value = Session::get($key, $default);
-        return $value;
+        if ($key == '') {
+            return session()->get(config('const.SYSTEM.SESSION_ADMIN_NAME'));
+        }
+        if (session()->has(config('const.SYSTEM.SESSION_ADMIN_NAME') . '.' . $key)) {
+            return session()->get(config('const.SYSTEM.SESSION_ADMIN_NAME') . '.' . $key);
+        } else {
+            return false;
+        }
     }
 
     /**
-     * Save to session
+     * Save session
      *
      * @param string $key
-     * @param mixed $formInput
-     * @return mixed
+     * @param mixed $value
+     * @return void
      */
-    public function setSession(string $key, $formInput)
+    public function setSession(string $key, $value)
     {
-        $value = Session::put($key, $formInput);
-        return $value;
+        session()->put(config('const.SYSTEM.SESSION_ADMIN_NAME') . '.' . $key, $value);
     }
 
     /**
-     * Forget to session
+     * Forget session
      *
      * @param string $key
      * @return void
      */
     public function forgetSession(string $key)
     {
-        Session::forget($key);
+        if ($key == '') {
+            session()->forget(config('const.SYSTEM.SESSION_ADMIN_NAME'));
+        } else {
+            session()->forget(config('const.SYSTEM.SESSION_ADMIN_NAME') . '.' . $key);
+        }
     }
 
     /**
-     * Flush to session
+     * Flush session
      *
      * @return void
      */
     public function flushSession()
     {
-        Session::flush();
+        session()->flush();
     }
 }
