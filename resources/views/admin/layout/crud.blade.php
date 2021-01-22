@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	$(document).ready(function() {
+    $(document).ready(function() {
 		$(".upload-button").on('click', function() {
 			$(".file-upload").click();
 		});
@@ -24,7 +24,7 @@
 	});
 </script>
 <script type="text/javascript">
-	const realFileBtn = document.getElementById("real-file");
+    const realFileBtn = document.getElementById("real-file");
 	const customBtn = document.getElementById("custom-button");
 	const customTxt = document.getElementById("custom-text");
 
@@ -44,12 +44,12 @@
 
 </script>
 <script type="text/javascript">
-	$(function(){
+    $(function(){
 		$('.delete_part').click(function(){
 			var id = $(this).data('id');
 			var url ="{{url('departments/delete')}}/"+id;
 			Swal.fire({
-				title: 'Are you sure?',
+				title: "{{__('messages.common.confirm')}}",
 				text: "You won't be able to revert this!",
 				type: 'warning',
 				showCancelButton: true,
@@ -72,7 +72,9 @@
 									text:"Xóa thành công",
 									button:"Done",
 								});
-								window.location.reload();
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 800)
 							}
 							else
 							{
@@ -100,7 +102,7 @@
 	});
 </script>
 <script type="text/javascript">
-	$(function(){
+    $(function(){
 		$('.delete_employ').click(function(){
 			var id = $(this).data('id');
 			var url ="{{url('employees/delete')}}/"+id;
@@ -128,7 +130,9 @@
 									text:"Xóa thành công",
 									button:"Done",
 								});
-								window.location.reload();
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 800)
 							}
 							else
 							{
@@ -156,7 +160,7 @@
 	});
 </script>
 <script type="text/javascript">
-	$(function(){
+    $(function(){
 		$('.delete_users').click(function(){
 			var id = $(this).data('id');
 			var url ="{{url('users/delete')}}/"+id;
@@ -184,7 +188,9 @@
 									text:"Xóa thành công",
 									button:"Done",
 								});
-								window.location.reload();
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 800)
 							}
 							else
 							{
@@ -212,7 +218,7 @@
 	});
 </script>
 <script>
-	$(function(){
+    $(function(){
 		//Thêm mới
 		$('.modal-salary').click(function(){
 			$('#exampleModal').modal('show');
@@ -260,7 +266,9 @@
 							title: 'Thông báo !',
 							text: 'Thêm mới thành công...',
 						});
-						window.location.reload();
+                        setTimeout(() => {
+                                    window.location.reload();
+                                }, 800)
 					}
 				}
 			});
@@ -268,7 +276,7 @@
 	});
 </script>
 <script type="text/javascript">
-	$('.salary-modal').click(function(){
+    $('.salary-modal').click(function(){
 		var id = $(this).data('id');
 		var numberofday = $(this).data('numberofday');
 		var numberofot = $(this).data('numberofot');
@@ -310,8 +318,6 @@
 			dataType:"JSON",
 			success:function(data)
 			{
-				console.log(data);
-
 				$.each(data.errors,function(key, value){
 					$('#message-salary1').removeClass('hidden');
 					$('#message-salary1').text('Message ! '+value);
@@ -324,7 +330,9 @@
 						title: 'Thông báo !',
 						text: 'Cập nhật thành công...',
 					});
-					window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800)
 				}
 			}
 		});

@@ -14,13 +14,19 @@ class DepartmentController extends AdminControllerBase
     /**
      * Manage the list of departments
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
-	public function getList()
+	public function getList(Request $request)
 	{
 		$departmentRepository = new DepartmentRepository();
-		$result = $departmentRepository->getList();
-		return view('admin.departments.list', ['result' => $result]);
+        $result = $departmentRepository->getList();
+        $pageRow = $request->pageRow ?? config('const.SYSTEM.DEFAULT_ROW');
+        $viewAssign = [
+            'result' => $result,
+            'pageRow' => $pageRow,
+        ];
+		return view('admin.departments.list', $viewAssign);
 	}
 
     /**
