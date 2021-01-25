@@ -57,13 +57,13 @@ class DepartmentController extends AdminControllerBase
     /**
      * Page display edit processing
      *
-     * @param string $id
      * @return \Illuminate\View\View
      */
-	public function getEdit(string $id)
+	public function getEdit()
 	{
+        $departmentId = $this->getSession('department_id');
 		$departmentRepository = new DepartmentRepository();
-		$result = $departmentRepository->getDetail($id);
+		$result = $departmentRepository->getDetail($departmentId);
 
 		return view('admin.departments.edit', ['result' => $result]);
 	}
@@ -73,54 +73,87 @@ class DepartmentController extends AdminControllerBase
      *
      * @param \Illuminate\Http\Request $request
      * @param string $id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+	public function postEdit(Request $request)
+	{
+        $requestAll = $request->all();
+        $departmentRepository = new DepartmentRepository();
+        $departmentRequest = new DepartmentRequest();
+        if (array_key_exists('request_department_id', $requestAll) === true) {
+            $departmentId = $requestAll['request_department_id'];
+            $result = $departmentRepository->getDetail($departmentId);
+            $this->setSession('department_id', $departmentId);
+            $viewAssign = [
+                'result' => $result,
+            ];
+            return view(config('const.SYSTEM.ADMIN') . '.' . 'departments.edit', $viewAssign);
+        } else {
+            $departmentId = $requestAll['department_id'];
+            $departmentRequest->checkForSave($request, $departmentId);
+            $this->setSession('request_department_form', $request->except('_token'));
+            $this->setSession('department_id', $departmentId);
+            return redirect('/departments/confirm');
+        }
+    }
+
+    /**
+     * Confirm added screen
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getConfirm()
+    {
+        $result = $this->getSession('request_department_form');
+        return view('admin.departments.confirm', ['result' => $result]);
+    }
+
+    /**
+     * Confirm added screen
+     *
      * @return \Illuminate\Routing\Redirector
      */
-	public function postEdit(Request $request, string $id)
-	{
-        $departmentRequest = new DepartmentRequest();
-        $departmentRequest->checkForSave($request);
-		$edit_depart = Department::where('id', $id)->first();
-		$edit_depart->depart_name = $request->depart_name;
-		$edit_depart->depart_phone = $request->depart_phone;
-        $edit_depart->depart_note = $request->depart_note;
-		$edit_depart->save();
-
-		return redirect('departments/edit/' . $id);
-	}
+    public function postConfirm()
+    {
+        $departmentRepository = new DepartmentRepository();
+        $result = $this->getSession('request_department_form');
+        $departmentId = $this->getSession('department_id');
+        if (!is_null($result)) {
+            if ($departmentId) {
+                $departmentRepository->update($result, $departmentId);
+                return redirect('/departments/complete');
+            }
+        }
+    }
 
 	/**
-     * Manage additional departments
+     * Confirmation screen completed
      *
      * @return \Illuminate\View\View
      */
 	public function getComplete()
 	{
+        $this->forgetSession('request_department_form');
+        $this->forgetSession('department_id');
+        $this->forgetSession('request_department_id');
 		return view('admin.departments.complete');
-	}
-
-	/**
-     * Manage additional departments
-     *
-     * @return \Illuminate\View\View
-     */
-	public function getDetail()
-	{
-		$result = $this->getSession('formInput');
-		return view('admin.departments.detail', ['result' => $result]);
 	}
 
 	/**
      * Detail screen display
      *
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
      */
-	public function postDetail()
+	public function postDetail(Request $request)
 	{
-        $departmentRepository = new DepartmentRepository();
-		$departmentRepository->intert($this->getSession('formInput'));
-		$this->forgetSession('formInput');
-
-		return redirect('/departments/complete');
+        $requestAll = $request->all();
+        if (array_key_exists('request_department_id', $requestAll) === true) {
+            $departmentRepository = new DepartmentRepository();
+            $result = $departmentRepository->getDetail($requestAll['request_department_id']);
+            return view(config('const.SYSTEM.ADMIN'). '.' .'departments.detail', ['result' => $result]);
+        }
+        return redirect('/departments');
 	}
 
     /**
@@ -132,9 +165,9 @@ class DepartmentController extends AdminControllerBase
      */
 	public function getDelete($id)
 	{
-		if (isset($id)) {
-			$delete_depart = Department::where('id', $id)->first();
-			$delete_depart->delete($id);
+		if (isset($id) || !is_null($id)) {
+			$departmentRepository = new DepartmentRepository();
+			$departmentRepository->delete($id);
 			return response()->json(['success' => 1]);
 		} else {
 			abort(404);

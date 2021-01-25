@@ -6,12 +6,7 @@
     <div class="row">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Create a new Departments</h2>
-          <ul class="nav navbar-right panel_toolbox">
-            <button class="btn btn-danger">
-              <a class="text-white" href="{{URL::to('/departments')}}">Danh sách</a>
-            </button>
-          </ul>
+          <h2>Xác nhận thêm mới</h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -53,8 +48,7 @@
             </div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <form method="POST" action="/departments/edit">
-                  <input type="hidden" name="request_department_id" value="{{$result['id']}}" />
+                <form method="POST" action="/departments/confirm">
                   <input type="submit" class="btn btn-success" value="Lưu">
                   {{CsrfTokenUtil::csrfToken()}}
                 </form>

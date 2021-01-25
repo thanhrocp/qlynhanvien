@@ -23,16 +23,13 @@
         </div>
         <div class="x_content">
           <br />
-          <form class="form-horizontal form-label-left" method="POST">
-            {!! csrf_field() !!}
+          <form class="form-horizontal form-label-left" method="POST" action="/departments/edit">
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên phòng / ban <span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" value="{{$result->depart_name ?? null}}" placeholder="Ghi tên phòng" class="form-control" name="depart_name">
               </div>
-              @if($errors->has('depart_name'))
               <p style="color:red">{{$errors->first('depart_name')}}</p>
-              @endif
             </div>
             <!--======================================================================================================-->
             <div class="form-group">
@@ -40,18 +37,14 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="number" value="{{$result->depart_phone ?? null}}" placeholder="Nhập số điện thoại" name="depart_phone" class="form-control">
               </div>
-              @if($errors->has('depart_phone'))
               <p style="color:red"> {{ $errors->first('depart_phone')}}</p>
-              @endif
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Số nhân viên <span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="number" value="{{$result->depart_number_persion ?? null}}" placeholder="Nhập số điện thoại" name="depart_number_persion" class="form-control">
               </div>
-              @if($errors->has('depart_number_persion'))
               <p style="color:red"> {{ $errors->first('depart_number_persion')}}</p>
-              @endif
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Ghi chú <span class="required">*</span></label>
@@ -64,7 +57,9 @@
                 <button type="submit" class="btn btn-success">Lưu</button>
                 <button type="reset" class="btn btn-danger">Hủy</button>
               </div>
+              <input type="hidden" name="department_id" value="{{$result['id']}}" />
             </div>
+            {{CsrfTokenUtil::csrfToken()}}
           </form>
         </div>
       </div>

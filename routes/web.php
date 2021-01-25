@@ -20,10 +20,11 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::middleware('auth:web')->get('/departments', 'DepartmentController@getList');
 Route::middleware('auth:web')->get('/departments/new', 'DepartmentController@getNew');
 Route::middleware('auth:web')->post('/departments/new', 'DepartmentController@postNew');
-Route::middleware('auth:web')->get('/departments/edit/{id}', 'DepartmentController@getEdit');
-Route::middleware('auth:web')->post('/departments/edit/{id}', 'DepartmentController@postEdit');
-Route::middleware('auth:web')->get('/departments/detail', 'DepartmentController@getDetail');
+Route::middleware('auth:web')->get('/departments/edit', 'DepartmentController@getEdit');
+Route::middleware('auth:web')->post('/departments/edit', 'DepartmentController@postEdit');
 Route::middleware('auth:web')->post('/departments/detail', 'DepartmentController@postDetail');
+Route::middleware('auth:web')->get('/departments/confirm', 'DepartmentController@getConfirm');
+Route::middleware('auth:web')->post('/departments/confirm', 'DepartmentController@postConfirm');
 Route::middleware('auth:web')->get('/departments/complete', 'DepartmentController@getComplete');
 Route::middleware('auth:web')->get('/departments/delete/{id}', 'DepartmentController@getDelete');
 

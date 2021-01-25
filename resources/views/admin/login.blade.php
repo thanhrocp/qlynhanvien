@@ -37,7 +37,7 @@
                         class="form__link">{{__('Here')}}!</label>
             </form>
             <form class="form form--login" action="" method="post" autocomplete="off">
-                {{CsrfTokenUtil::CsrfToken()}}
+                {{CsrfTokenUtil::csrfToken()}}
                 <img src="{{asset('logo/1150626.svg')}}" class="box__image_logo" />
                 @if($errors->has('auth-failed'))
                 <p class="text-danger error-msg">

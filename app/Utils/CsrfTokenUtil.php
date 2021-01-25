@@ -11,7 +11,7 @@ class CsrfTokenUtil
      *
      * @return \Illuminate\Support\HtmlString
      */
-    public static function CsrfToken()
+    public static function csrfToken()
     {
         return new HtmlString('<input type="hidden" name="_token" value="'.csrf_token().'">');
     }

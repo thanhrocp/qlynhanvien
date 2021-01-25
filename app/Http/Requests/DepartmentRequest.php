@@ -28,7 +28,7 @@ class DepartmentRequest extends FormRequest
     public function rules(string $departmentId = null)
     {
         return [
-            'depart_name'=>'required|max:191|unique:departments,depart_name,' . $departmentId . 'id',
+            'depart_name'=>'required|max:191|unique:departments,depart_name,' . $departmentId . ',id',
             'depart_phone'=>'required|max:10'
         ];
     }
@@ -43,7 +43,6 @@ class DepartmentRequest extends FormRequest
     public function checkForSave(Request $request, string $departmentId = null)
     {
         $validator = Validator::make($request->except('_token'), $this->rules($departmentId));
-
         if ($validator->fails()) {
             throw new ValidationException($request, $validator);
         }

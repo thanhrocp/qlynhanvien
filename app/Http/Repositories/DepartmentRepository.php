@@ -28,7 +28,7 @@ class DepartmentRepository
     public function getDetail(string $id)
     {
         $department = new Department();
-        $result =  $department->where('id', $id)->first();
+        $result = $department->where('id', $id)->first();
         return $result;
     }
 
@@ -49,5 +49,40 @@ class DepartmentRepository
         });
 
         return $model->id;
+    }
+
+    /**
+     * Update department
+     *
+     * @param array $formInput
+     * @param string $departmentId
+     * @return string $id
+     */
+    public function update(array $formInput, string $departmentId)
+    {
+        $department = new Department();
+        $formInput = $department->autoSettingBy($formInput);
+
+        DB::transaction(function () use ($department, $formInput, $departmentId) {
+            $department->find($departmentId)->update($formInput);
+        });
+
+        return $departmentId;
+    }
+
+    /**
+     * Delete department
+     *
+     * @param string $departmentId
+     * @return string $id
+     */
+    public function delete(string $departmentId)
+    {
+        $department = new Department();
+        DB::transaction(function () use ($department, $departmentId) {
+            $department->find($departmentId)->delete();
+        });
+
+        return $departmentId;
     }
 }
