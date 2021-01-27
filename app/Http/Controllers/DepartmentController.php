@@ -47,11 +47,11 @@ class DepartmentController extends AdminControllerBase
      */
 	public function postNew(Request $request)
 	{
-        $this->setSession('formInput', $request->except('_token'));
+        $this->setSession('request_department_form', $request->except('_token'));
         $departmentRequest = new DepartmentRequest();
         $departmentRequest->checkForSave($request);
 
-		return redirect('/departments/detail');
+		return redirect('/departments/confirm');
 	}
 
     /**
@@ -122,21 +122,26 @@ class DepartmentController extends AdminControllerBase
             if ($departmentId) {
                 $departmentRepository->update($result, $departmentId);
                 return redirect('/departments/complete');
+            } else {
+                $departmentRepository->intert($result);
+                return redirect('/departments/complete');
             }
+        } else {
+            return redirect('/departments');
         }
     }
 
 	/**
      * Confirmation screen completed
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Routing\Redirector
      */
 	public function getComplete()
 	{
         $this->forgetSession('request_department_form');
         $this->forgetSession('department_id');
         $this->forgetSession('request_department_id');
-		return view('admin.departments.complete');
+		return redirect('/departments/complete');
 	}
 
 	/**
@@ -163,7 +168,7 @@ class DepartmentController extends AdminControllerBase
      * @return \Illuminate\Http\Response
      * @return void
      */
-	public function getDelete($id)
+	public function delete($id)
 	{
 		if (isset($id) || !is_null($id)) {
 			$departmentRepository = new DepartmentRepository();
@@ -172,12 +177,5 @@ class DepartmentController extends AdminControllerBase
 		} else {
 			abort(404);
 		}
-	}
-
-	public function deleteAll(Request $request)
-	{
-		$ids = $request->input('departdelete', []);
-		DB::table('departments')->whereIn('id', $ids)->delete();
-		return back();
 	}
 }

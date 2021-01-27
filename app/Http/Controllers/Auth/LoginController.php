@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Repositories\RoleRepository;
 
 class LoginController extends Controller
 {
@@ -94,5 +95,27 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return $this->loggedOut($request) ?: redirect('/');
-	}
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    public function authenticated(Request $request, $user)
+    {
+        $roleRepository = new RoleRepository();
+        $roles = $roleRepository->getPermissions($user->role_id);
+        if ($roles && count($roles)) {
+            $permissions = [];
+            foreach ($roles as $role) {
+                $permissions[] = json_decode($role->role_permission, true);
+            }
+            $request->session()->put('auth_role', $permissions);
+        } else {
+            $request->session()->put('auth_role', []);
+        }
+    }
 }

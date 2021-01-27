@@ -36,8 +36,7 @@
                 <p class="form__text">{{__('Already')}}? <label for="toggle" onClick="onFocusForgot();"
                         class="form__link">{{__('Here')}}!</label>
             </form>
-            <form class="form form--login" action="" method="post" autocomplete="off">
-                {{CsrfTokenUtil::csrfToken()}}
+            <form class="form form--login" action="" method="post">
                 <img src="{{asset('logo/1150626.svg')}}" class="box__image_logo" />
                 @if($errors->has('auth-failed'))
                 <p class="text-danger error-msg">
@@ -46,7 +45,7 @@
                 @endif
                 <div class="form-group">
                     <label class="form__label" for="user">{{__('Email')}}</label>
-                    <input type="text" name="email" id="email" placeholder="Email" class="form-control" />
+                    <input type="text" name="email" value="{{old('email')}}" id="email" placeholder="Email" class="form-control" />
                     @if($errors->has('email'))
                     <span class="text-danger error-msg">
                         {{$errors->first('email')}}
@@ -55,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form__label" for="password">{{__('Password')}}</label>
-                    <input type="password" name="password" placeholder="Password" class="form-control" />
+                    <input type="password" name="password" placeholder="Password" class="form-control" autocomplete="off" />
                     @if($errors->has('password'))
                     <span class="text-danger error-msg">
                         {{$errors->first('password')}}
@@ -65,6 +64,7 @@
                 <button type="submit" class="btn form__button" onclick="return showStuff(event);">{{__('Login')}}</button>
                 <p class="form__text">{{__('Forgot password')}}? <label for="toggle" onClick="onFocusLogin();"
                         class="form__link">{{__('Here')}}!</label>
+                {{CsrfTokenUtil::csrfToken()}}
             </form>
         </div>
     </div>

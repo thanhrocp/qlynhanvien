@@ -31,7 +31,7 @@
 
               <select class="form-control" name="role_id">
 
-               <?php $role = DB::table('roles')->get() ?>
+               <?php $role = DB::table('roles')->where('role_name', '!=', 'Administrator')->get() ?>
 
                @foreach($role as $rl)
 

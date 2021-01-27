@@ -9,7 +9,7 @@
  				<div class="col-middle">
  					<div class="text-center text-center">
  						<h1 class="error-number">403</h1>
- 						<h2>Bạn không có quyền truy cập</h2>
+ 						<h2>{{$exception->getMessage()}}</h2>
  					</div>
  				</div>
  			</div>

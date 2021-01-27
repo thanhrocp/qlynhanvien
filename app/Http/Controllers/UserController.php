@@ -38,22 +38,13 @@ class UserController extends Controller
 		$add_user->role_id = $request->role_id;
 		$add_user->name = $request->name;
 		$add_user->email = $request->email;
-		$add_user->password = bcrypt($request->password);
+        $add_user->password = bcrypt($request->password);
+        $add_user->created_by = 'SYSTEM';
+        $add_user->updated_by = 'SYSTEM';
 
 		$add_user->save();
 
 		return back();
-	}
-
-	/**
-     * Exit the session
-     *
-     * @return \Illuminate\Routing\Redirector
-	 */
-    public function logout()
-    {
-		Auth::logout();
-		return redirect('/');
 	}
 
 	/*-------------Delete user------------------*/

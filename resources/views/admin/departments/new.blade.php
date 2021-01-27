@@ -16,8 +16,7 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
-            {!! csrf_field() !!}
+          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/departments/new" method="POST">
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên phòng / ban <span class="required">*</span>
               </label>
@@ -57,6 +56,7 @@
                 <button type="reset" class="btn btn-danger">Hủy</button>
               </div>
             </div>
+            {{CsrfTokenUtil::csrfToken()}}
           </form>
         </div>
       </div>

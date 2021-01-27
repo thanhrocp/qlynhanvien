@@ -17,31 +17,31 @@ Route::get('/', 'Auth\LoginController@login')->name('login');
 Route::post('/', 'Auth\LoginController@postLogin');
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::middleware('auth:web')->get('/departments', 'DepartmentController@getList');
-Route::middleware('auth:web')->get('/departments/new', 'DepartmentController@getNew');
-Route::middleware('auth:web')->post('/departments/new', 'DepartmentController@postNew');
-Route::middleware('auth:web')->get('/departments/edit', 'DepartmentController@getEdit');
-Route::middleware('auth:web')->post('/departments/edit', 'DepartmentController@postEdit');
-Route::middleware('auth:web')->post('/departments/detail', 'DepartmentController@postDetail');
-Route::middleware('auth:web')->get('/departments/confirm', 'DepartmentController@getConfirm');
-Route::middleware('auth:web')->post('/departments/confirm', 'DepartmentController@postConfirm');
-Route::middleware('auth:web')->get('/departments/complete', 'DepartmentController@getComplete');
-Route::middleware('auth:web')->get('/departments/delete/{id}', 'DepartmentController@getDelete');
+Route::middleware('auth:web')->get('/index', 'HomeController@index');
 
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/', ['as' => 'userList', 'uses' => 'UserController@index']);
-    Route::post('/', ['as' => 'user_reset', 'uses' => 'UserController@resetpass']);
-    Route::get('import-user', ['as' => 'importUser', 'uses' => 'ImportUserController@getImport']);
-    Route::get('excel-upload', ['as' => 'confirmExcel', 'uses' => 'ImportUserController@confirmExcel']);
-    Route::post('import-user', ['as' => 'import_user', 'uses' => 'ImportUserController@postImport']);
-    Route::get('add', ['as' => 'userAdd', 'uses' => 'UserController@create']);
-    Route::post('add', ['as' => 'user_Add', 'uses' => 'UserController@store']);
-    Route::get('edit/{id}', ['as' => 'userEdit', 'uses' => 'UserController@edit']);
-    Route::post('edit/{id}', ['as' => 'user_Edit', 'uses' => 'UserController@update']);
-    Route::get('delete/{id}', ['as' => 'user_delete', 'uses' => 'UserController@destroy']);
-    Route::get('changepass', ['as' => 'changepass', 'uses' => 'UserController@showChangePass']);
-    Route::post('changepass', ['as' => 'change_pass', 'uses' => 'UserController@ChangePass']);
-});
+Route::middleware('auth:web', 'enable:departments,list')->get('/departments', 'DepartmentController@getList');
+Route::middleware('auth:web', 'enable:departments,create')->get('/departments/new', 'DepartmentController@getNew');
+Route::middleware('auth:web', 'enable:departments,create')->post('/departments/new', 'DepartmentController@postNew');
+Route::middleware('auth:web', 'enable:departments,edit')->get('/departments/edit', 'DepartmentController@getEdit');
+Route::middleware('auth:web', 'enable:departments,edit')->post('/departments/edit', 'DepartmentController@postEdit');
+Route::middleware('auth:web', 'enable:departments,detail')->post('/departments/detail', 'DepartmentController@postDetail');
+Route::middleware('auth:web', 'enable:departments,confirm')->get('/departments/confirm', 'DepartmentController@getConfirm');
+Route::middleware('auth:web', 'enable:departments,confirm')->post('/departments/confirm', 'DepartmentController@postConfirm');
+Route::middleware('auth:web', 'enable:departments,complete')->get('/departments/complete', 'DepartmentController@getComplete');
+Route::middleware('auth:web', 'enable:departments,delete')->get('/departments/delete/{id}', 'DepartmentController@delete');
+
+Route::middleware('auth:web', 'enable:users,list')->get('/users', ['as' => 'userList', 'uses' => 'UserController@index']);
+Route::middleware('auth:web', 'enable:users,admin')->post('/users', ['as' => 'user_reset', 'uses' => 'UserController@resetpass']);
+Route::middleware('auth:web', 'enable:users,admin')->get('/users/import-user', ['as' => 'importUser', 'uses' => 'ImportUserController@getImport']);
+Route::middleware('auth:web', 'enable:users,admin')->get('/users/excel-upload', ['as' => 'confirmExcel', 'uses' => 'ImportUserController@confirmExcel']);
+Route::middleware('auth:web', 'enable:users,admin')->post('/users/import-user', ['as' => 'import_user', 'uses' => 'ImportUserController@postImport']);
+Route::middleware('auth:web', 'enable:users,create')->get('/users/new', ['as' => 'userAdd', 'uses' => 'UserController@create']);
+Route::middleware('auth:web', 'enable:users,create')->post('/users/new', ['as' => 'user_Add', 'uses' => 'UserController@store']);
+Route::middleware('auth:web', 'enable:users,edit')->get('/users/edit/{id}', ['as' => 'userEdit', 'uses' => 'UserController@edit']);
+Route::middleware('auth:web', 'enable:users,edit')->post('/users/edit/{id}', ['as' => 'user_Edit', 'uses' => 'UserController@update']);
+Route::middleware('auth:web', 'enable:users,delete')->get('/users/delete/{id}', ['as' => 'user_delete', 'uses' => 'UserController@destroy']);
+Route::middleware('auth:web', 'enable:users,admin')->get('/users/changepass', ['as' => 'changepass', 'uses' => 'UserController@showChangePass']);
+Route::middleware('auth:web', 'enable:users,admin')->post('/users/changepass', ['as' => 'change_pass', 'uses' => 'UserController@ChangePass']);
 
 Route::group(['prefix' => 'employees'], function () {
     Route::get('/', ['as' => 'employList', 'uses' => 'EmployeeController@index']);
@@ -57,8 +57,6 @@ Route::group(['prefix' => 'employees'], function () {
     Route::post('edit/{id}/work', ['as' => 'add_work', 'uses' => 'EmployeeWorkController@update']);
 });
 Route::resource('salary', 'SalaryController', ['middleware' => 'adminrole']);
-
-Route::middleware('auth:web')->get('/index', 'HomeController@index');
 
 Route::group(['prefix' => 'contacts'], function () {
 	Route::get('/', ['as' => 'contactList', 'uses' => 'ContactController@index']);
