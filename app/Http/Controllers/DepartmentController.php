@@ -24,6 +24,7 @@ class DepartmentController extends AdminControllerBase
             'result' => $result,
             'pageRow' => $pageRow,
         ];
+        $request->flash();
 		return view(config('const.SYSTEM.ADMIN') . '.departments.list', $viewAssign);
 	}
 
