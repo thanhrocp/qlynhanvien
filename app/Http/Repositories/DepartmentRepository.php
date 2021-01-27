@@ -23,7 +23,7 @@ class DepartmentRepository
      * Get department detail
      *
      * @param string $id
-     * @return array $result
+     * @return array
      */
     public function getDetail(string $id)
     {
@@ -36,7 +36,7 @@ class DepartmentRepository
      * Add new
      *
      * @param array $formInput
-     * @return string $id
+     * @return string
      */
     public function intert(array $formInput)
     {
@@ -56,7 +56,7 @@ class DepartmentRepository
      *
      * @param array $formInput
      * @param string $departmentId
-     * @return string $id
+     * @return string
      */
     public function update(array $formInput, string $departmentId)
     {

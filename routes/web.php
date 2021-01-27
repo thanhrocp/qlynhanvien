@@ -30,18 +30,12 @@ Route::middleware('auth:web', 'enable:departments,confirm')->post('/departments/
 Route::middleware('auth:web', 'enable:departments,complete')->get('/departments/complete', 'DepartmentController@getComplete');
 Route::middleware('auth:web', 'enable:departments,delete')->get('/departments/delete/{id}', 'DepartmentController@delete');
 
-Route::middleware('auth:web', 'enable:users,list')->get('/users', ['as' => 'userList', 'uses' => 'UserController@index']);
-Route::middleware('auth:web', 'enable:users,admin')->post('/users', ['as' => 'user_reset', 'uses' => 'UserController@resetpass']);
-Route::middleware('auth:web', 'enable:users,admin')->get('/users/import-user', ['as' => 'importUser', 'uses' => 'ImportUserController@getImport']);
-Route::middleware('auth:web', 'enable:users,admin')->get('/users/excel-upload', ['as' => 'confirmExcel', 'uses' => 'ImportUserController@confirmExcel']);
-Route::middleware('auth:web', 'enable:users,admin')->post('/users/import-user', ['as' => 'import_user', 'uses' => 'ImportUserController@postImport']);
-Route::middleware('auth:web', 'enable:users,create')->get('/users/new', ['as' => 'userAdd', 'uses' => 'UserController@create']);
-Route::middleware('auth:web', 'enable:users,create')->post('/users/new', ['as' => 'user_Add', 'uses' => 'UserController@store']);
-Route::middleware('auth:web', 'enable:users,edit')->get('/users/edit/{id}', ['as' => 'userEdit', 'uses' => 'UserController@edit']);
-Route::middleware('auth:web', 'enable:users,edit')->post('/users/edit/{id}', ['as' => 'user_Edit', 'uses' => 'UserController@update']);
-Route::middleware('auth:web', 'enable:users,delete')->get('/users/delete/{id}', ['as' => 'user_delete', 'uses' => 'UserController@destroy']);
-Route::middleware('auth:web', 'enable:users,admin')->get('/users/changepass', ['as' => 'changepass', 'uses' => 'UserController@showChangePass']);
-Route::middleware('auth:web', 'enable:users,admin')->post('/users/changepass', ['as' => 'change_pass', 'uses' => 'UserController@ChangePass']);
+Route::middleware('auth:web', 'enable:users,list')->get('/users', 'UserController@index');
+Route::middleware('auth:web', 'enable:users,create')->get('/users/new', 'UserController@create');
+Route::middleware('auth:web', 'enable:users,create')->post('/users/new', 'UserController@store');
+Route::middleware('auth:web', 'enable:users,edit')->get('/users/edit/{id}', 'UserController@edit');
+Route::middleware('auth:web', 'enable:users,edit')->post('/users/edit/{id}', 'UserController@update');
+Route::middleware('auth:web', 'enable:users,delete')->get('/users/delete/{id}','UserController@destroy');
 
 Route::group(['prefix' => 'employees'], function () {
     Route::get('/', ['as' => 'employList', 'uses' => 'EmployeeController@index']);

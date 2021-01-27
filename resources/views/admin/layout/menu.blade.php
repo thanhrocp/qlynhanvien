@@ -33,8 +33,8 @@
           <li>
             <a><i class="fa fa-user"></i> Tài khoản <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="{{route('userList')}}">Danh sách</a></li>
-              <li><a href="{{route('userAdd')}}">Thêm mới</a></li>
+              <li><a href="/users">Danh sách</a></li>
+              <li><a href="/users/new">Thêm mới</a></li>
             </ul>
           </li>
           <li>

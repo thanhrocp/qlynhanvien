@@ -28,7 +28,7 @@ class DepartmentRequest extends FormRequest
     public function rules(string $departmentId = null)
     {
         return [
-            'depart_name'=>'required|max:191|unique:departments,depart_name,' . $departmentId . ',id',
+            'depart_name'=>'required|max:191|unique:department,depart_name,' . $departmentId . ',id',
             'depart_phone'=>'required|max:10'
         ];
     }

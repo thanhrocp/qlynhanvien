@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DepartmentRequest;
-use App\Models\Department;
 use App\Http\Repositories\DepartmentRepository;
 use App\Http\Controllers\Base\AdminControllerBase;
 
@@ -26,7 +24,7 @@ class DepartmentController extends AdminControllerBase
             'result' => $result,
             'pageRow' => $pageRow,
         ];
-		return view('admin.departments.list', $viewAssign);
+		return view(config('const.SYSTEM.ADMIN') . '.departments.list', $viewAssign);
 	}
 
     /**
@@ -65,7 +63,7 @@ class DepartmentController extends AdminControllerBase
 		$departmentRepository = new DepartmentRepository();
 		$result = $departmentRepository->getDetail($departmentId);
 
-		return view('admin.departments.edit', ['result' => $result]);
+		return view(config('const.SYSTEM.ADMIN') . '.departments.edit', ['result' => $result]);
 	}
 
     /**
@@ -87,7 +85,7 @@ class DepartmentController extends AdminControllerBase
             $viewAssign = [
                 'result' => $result,
             ];
-            return view(config('const.SYSTEM.ADMIN') . '.' . 'departments.edit', $viewAssign);
+            return view(config('const.SYSTEM.ADMIN') . '.departments.edit', $viewAssign);
         } else {
             $departmentId = $requestAll['department_id'];
             $departmentRequest->checkForSave($request, $departmentId);
@@ -105,7 +103,7 @@ class DepartmentController extends AdminControllerBase
     public function getConfirm()
     {
         $result = $this->getSession('request_department_form');
-        return view('admin.departments.confirm', ['result' => $result]);
+        return view(config('const.SYSTEM.ADMIN') . '.departments.confirm', ['result' => $result]);
     }
 
     /**
@@ -141,7 +139,7 @@ class DepartmentController extends AdminControllerBase
         $this->forgetSession('request_department_form');
         $this->forgetSession('department_id');
         $this->forgetSession('request_department_id');
-		return redirect('/departments/complete');
+		return view(config('const.SYSTEM.ADMIN') . '.departments.complete');
 	}
 
 	/**
@@ -156,7 +154,7 @@ class DepartmentController extends AdminControllerBase
         if (array_key_exists('request_department_id', $requestAll) === true) {
             $departmentRepository = new DepartmentRepository();
             $result = $departmentRepository->getDetail($requestAll['request_department_id']);
-            return view(config('const.SYSTEM.ADMIN'). '.' .'departments.detail', ['result' => $result]);
+            return view(config('const.SYSTEM.ADMIN') . '.departments.detail', ['result' => $result]);
         }
         return redirect('/departments');
 	}
