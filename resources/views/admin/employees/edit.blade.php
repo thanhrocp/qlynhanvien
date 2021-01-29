@@ -47,7 +47,7 @@
 
                  @foreach($departments as $dp)
 
-                 <option value="{{ $dp->id }}" @if($dp->id == (isset($update)?$update->depart_id:null)) selected @endif>{{ $dp->depart_name }}</option>
+                 <option value="{{ $dp->id }}" @if($dp->id == (isset($update)?$update->depart_id:null)) selected @endif>{{ $dp->department_name }}</option>
 
                  @endforeach
 

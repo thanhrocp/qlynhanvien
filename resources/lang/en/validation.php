@@ -77,10 +77,10 @@ return [
         'array' => 'The :attribute must not have more than :value items.',
     ],
     'max' => [
-        'numeric' => 'The :attribute may not be greater than :max.',
-        'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
-        'array' => 'The :attribute may not have more than :max items.',
+        'numeric' => ':attribute may not be greater than :max.',
+        'file' => ':attribute may not be greater than :max kilobytes.',
+        'string' => ':attribute may not be greater than :max characters.',
+        'array' => ':attribute may not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
@@ -146,8 +146,10 @@ return [
     */
 
     'attributes' => [
-        'depart_name' => __('database.departments.department_name'),
-        'depart_phone' => __('database.departments.department_phone'),
+        'department_name' => __('database.departments.department_name'),
+        'department_phone' => __('database.departments.department_phone'),
+        'department_number_person' => __('database.departments.department_number_person'),
+        'department_note' => __('database.departments.department_note'),
     ],
 
 ];

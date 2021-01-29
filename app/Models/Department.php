@@ -9,10 +9,10 @@ use Ulid\Ulid;
  * This is the custom base model class for table "departments".
  *
  * The followings are the available columns in table "departments":
- * @property string $depart_name
- * @property string $depart_phone 言語
- * @property string $depart_note 順番
- * @property string $depart_number_persion
+ * @property string $department_name
+ * @property string $department_phone 言語
+ * @property string $department_note 順番
+ * @property string $department_number_person
  * @copyright s-cubism.co.ltd. All Rights Reserved.
  * @category framework
  * @package Eloquent
@@ -61,10 +61,10 @@ class Department extends ModelBase
      */
     protected $fillable = [
         'id',
-        'depart_name',
-        'depart_phone',
-        'depart_note',
-        'depart_number_persion',
+        'department_name',
+        'department_phone',
+        'department_note',
+        'department_number_person',
         'created_by',
         'updated_by',
     ];

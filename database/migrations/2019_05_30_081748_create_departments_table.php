@@ -17,10 +17,10 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->string('id', 26);
-            $table->string('depart_name')->unique();
-            $table->string('depart_phone');
-            $table->string('depart_note');
-            $table->string('depart_number_persion');
+            $table->string('department_name')->unique();
+            $table->string('department_phone');
+            $table->string('department_number_person');
+            $table->string('department_note')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
             $table->string('created_by');
@@ -29,10 +29,10 @@ class CreateDepartmentsTable extends Migration
 
         DB::table('departments')->insert([
             'id' => (string) Ulid::generate(),
-            'depart_name' => 'Phòng nhân sự',
-            'depart_phone' => '0971192594',
-            'depart_note' => 'Phòng nhân sự',
-            'depart_number_persion' => '10',
+            'department_name' => 'Phòng nhân sự',
+            'department_phone' => '0971192594',
+            'department_note' => 'Phòng nhân sự',
+            'department_number_person' => '10',
             'created_by' => 'SYSTEM',
             'updated_by' => 'SYSTEM',
         ]);

@@ -42,7 +42,7 @@
 									<td> {{ ++$no }} </td>
 									<td> {{ $info->work_code }} </td>
 									<td> {{ $info->full_name }} </td>
-									<td> {{ $info->depart_name }} </td>
+									<td> {{ $info->department_name }} </td>
 									<td> {{ $info->position }} </td>
 									<td> {{ $info->birth_date }} </td>
 									<td> {{ $info->work_email }} </td>
@@ -80,7 +80,7 @@
 													<div class="col-md-6 col-sm-6 col-xs-6">
 														<div class="form-group">
 															<label>Bộ phận</label>
-															<input type="text" value="{{isset($info)?$info->depart_name:null}}" readonly class="form-control">
+															<input type="text" value="{{isset($info)?$info->department_name:null}}" readonly class="form-control">
 														</div>
 													</div>
 													<div class="col-md-6 col-sm-6 col-xs-6">

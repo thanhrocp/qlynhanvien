@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
                 'id' => $roleId,
                 'role_name' => 'Administrator',
                 'role_permission' => json_encode([
-                    'departments' => [
+                    'department' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -35,7 +35,7 @@ class RoleSeeder extends Seeder
                         'complete' => 1,
                         'admin' => 1,
                     ],
-                    'users' => [
+                    'user' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -45,7 +45,7 @@ class RoleSeeder extends Seeder
                         'complete' => 1,
                         'admin' => 1,
                     ],
-                    'employees' => [
+                    'employee' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -62,7 +62,7 @@ class RoleSeeder extends Seeder
                 'id' => (string) Ulid::generate(),
                 'role_name' => 'Admin',
                 'role_permission' => json_encode([
-                    'departments' => [
+                    'department' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -72,7 +72,7 @@ class RoleSeeder extends Seeder
                         'complete' => 1,
                         'admin' => 1,
                     ],
-                    'users' => [
+                    'user' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -82,7 +82,7 @@ class RoleSeeder extends Seeder
                         'complete' => 1,
                         'admin' => 1,
                     ],
-                    'employees' => [
+                    'employee' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -99,7 +99,7 @@ class RoleSeeder extends Seeder
                 'id' => (string) Ulid::generate(),
                 'role_name' => 'Manage',
                 'role_permission' => json_encode([
-                    'departments' => [
+                    'department' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -109,7 +109,7 @@ class RoleSeeder extends Seeder
                         'complete' => 1,
                         'admin' => 1,
                     ],
-                    'users' => [
+                    'user' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -119,7 +119,7 @@ class RoleSeeder extends Seeder
                         'complete' => 1,
                         'admin' => 1,
                     ],
-                    'employees' => [
+                    'employee' => [
                         'list' => 1,
                         'edit' => 1,
                         'create' => 1,
@@ -136,7 +136,7 @@ class RoleSeeder extends Seeder
                 'id' => (string) Ulid::generate(),
                 'role_name' => 'Guest',
                 'role_permission' => json_encode([
-                    'departments' => [
+                    'department' => [
                         'list' => 1,
                         'edit' => 0,
                         'create' => 0,
@@ -146,7 +146,7 @@ class RoleSeeder extends Seeder
                         'complete' => 0,
                         'admin' => 1,
                     ],
-                    'users' => [
+                    'user' => [
                         'list' => 1,
                         'edit' => 0,
                         'create' => 0,
@@ -156,7 +156,7 @@ class RoleSeeder extends Seeder
                         'complete' => 0,
                         'admin' => 1,
                     ],
-                    'employees' => [
+                    'employee' => [
                         'list' => 1,
                         'edit' => 0,
                         'create' => 0,
@@ -174,7 +174,7 @@ class RoleSeeder extends Seeder
 
         User::create([
             'id' => (string) Ulid::generate(),
-            'name' => 'ThanhDc2',
+            'name' => 'ThanhDC2',
             'email' => 'thanhdc2@rikkeisoft.com',
             'password' => bcrypt('thanh123'),
             'role_id' => $roleId,

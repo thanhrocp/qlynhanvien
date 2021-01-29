@@ -45,9 +45,9 @@
              </select>
 
            </div>
-           @if($errors->has('depart_name'))
+           @if($errors->has('department_name'))
 
-           <p style="color:red">{{$errors->first('depart_name')}}</p>
+           <p style="color:red">{{$errors->first('department_name')}}</p>
 
            @endif
 

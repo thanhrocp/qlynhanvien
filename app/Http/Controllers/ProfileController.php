@@ -17,7 +17,7 @@ class ProfileController extends Controller {
 		return DB::table('employee')->join('users', 'employees.user_id', '=', 'users.id')
 			->join('departments', 'employees.depart_id', '=', 'departments.id')
 			->select(DB::raw('CASE WHEN users.role_id=1 THEN "Admin" WHEN users.role_id=2 THEN "Employee" ELSE "Member" END AS position '),
-				'employees.*', 'departments.depart_name', 'users.email')
+				'employees.*', 'departments.department_name', 'users.email')
 			->where('employees.user_id', $user);
 	}
 	/*----------------Info Personal-------------*/

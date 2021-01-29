@@ -33,7 +33,6 @@ abstract class ModelBase extends Model
             $formInput['created_by'] = $user->id;
             $formInput['updated_by'] = $user->id;
         } else {
-            $formInput['created_by'] = 'SYSTEM';
             $formInput['updated_by'] = 'SYSTEM';
         }
 

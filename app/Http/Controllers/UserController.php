@@ -20,15 +20,18 @@ class UserController extends Controller
 	}
 
 	public function index() {
-		$list = $this->getInfo()->paginate(5);
-		return view('admin.users.list', ['list' => $list]);
+        $result = $this->getInfo()->paginate(5);
+        $viewAssign = [
+            'result' => $result,
+        ];
+		return view('admin.users.list', $viewAssign);
 	}
 
 	/**
 	 * @return \Illuminate\View\View
 	 */
 	public function create() {
-		return view('admin.users.add');
+		return view('admin.users.new');
 	}
 
 	/*-------------create user------------------*/

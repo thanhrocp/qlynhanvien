@@ -46,7 +46,7 @@
 
                @foreach($departments as $dp)
 
-               <option value="{{ $dp->id }}" {{ old('depart_id')==$dp->id?'selected':'' }}>{{ $dp->depart_name }}</option>
+               <option value="{{ $dp->id }}" {{ old('depart_id')==$dp->id?'selected':'' }}>{{ $dp->department_name }}</option>
 
                @endforeach
 

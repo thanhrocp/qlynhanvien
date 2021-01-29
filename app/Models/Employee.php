@@ -35,7 +35,7 @@ class Employee extends Model {
 				DB::raw('CASE WHEN users.role_id=1 THEN "Quản trị viên" WHEN users.role_id=2 THEN "Quản lý" ELSE "Nhân viên" END AS position'),
 				DB::raw('CONCAT(employees.first_name," ",employees.last_name) AS full_name'),
 				DB::raw('CONCAT(employ_contact.ct_town,", ",employ_contact.ct_village,", ",employ_contact.ct_address) as address'),
-				'departments.depart_name', 'employ_contact.ct_phone', 'employ_contact.ct_city', 'employ_contact.ct_address',
+				'departments.department_name', 'employ_contact.ct_phone', 'employ_contact.ct_city', 'employ_contact.ct_address',
 				'employ_work.work_code', 'employ_work.work_email')
 			->where('employees.depart_id', $user);
 	}
@@ -52,7 +52,7 @@ class Employee extends Model {
 				DB::raw('CASE WHEN users.role_id=1 THEN "Quản trị viên" WHEN users.role_id=2 THEN "Quản lý" ELSE "Nhân viên" END AS position'),
 				DB::raw('CONCAT(employees.first_name," ",employees.last_name) AS full_name'),
 				DB::raw('CONCAT(employ_contact.ct_town,", ",employ_contact.ct_village,", ",employ_contact.ct_address) as address'),
-				'departments.depart_name', 'employ_contact.ct_phone', 'employ_contact.ct_city', 'employ_contact.ct_address',
+				'departments.department_name', 'employ_contact.ct_phone', 'employ_contact.ct_city', 'employ_contact.ct_address',
 				'employ_work.work_code', 'employ_work.work_email')
 			->where('employees.depart_id', $user)
 			->get();
@@ -62,7 +62,7 @@ class Employee extends Model {
 		return DB::table('employees')->join('users', 'employees.user_id', '=', 'users.id')
 			->join('departments', 'employees.depart_id', '=', 'departments.id')
 			->select(DB::raw('CASE WHEN users.role_id=1 THEN "Admin" WHEN users.role_id=2 THEN "employees" ELSE "Member" END AS position '),
-				'employees.*', 'departments.depart_name', 'users.email')
+				'employees.*', 'departments.department_name', 'users.email')
 			->where('employees.user_id', $user);
 	}
 }

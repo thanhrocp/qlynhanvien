@@ -38,7 +38,7 @@
 								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Bộ phận <span class="required">*</span></label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<select class="form-control" disabled="">
-										<option value="">{{isset($personal)?$personal->depart_name:null}}</option>
+										<option value="">{{isset($personal)?$personal->department_name:null}}</option>
 									</select>
 								</div>
 							</div>

@@ -6,48 +6,46 @@
     <div class="row">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Create a new Departments</h2>
+          <h2>Thêm mới phòng ban</h2>
           <ul class="nav navbar-right panel_toolbox">
-            <button class="btn btn-danger">
-              <a class="text-white" href="{{URL::to('/departments')}}">Danh sách</a>
+            <button class="btn btn-danger" onclick="window.location='{{ url('/department') }}'">
+              <a class="text-white"><img src="{{asset('/master/build/icons/clipboard.svg')}}" width="20px" class="mr-5 mt--4"> Danh sách</a>
             </button>
           </ul>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/departments/new" method="POST">
+          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/department/new" method="POST">
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên phòng / ban <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên phòng / ban <span class="text-red">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" value="{{old('depart_name')}}" class="form-control" name="depart_name">
-              </div>
-              @if($errors->has('depart_name'))
-              <p style="color:red">{{$errors->first('depart_name')}}</p>
-              @endif
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại <span class="required">*</span>
-              </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" value="{{old('depart_phone')}}" name="depart_phone" class="form-control">
-              </div>
-              @if($errors->has('depart_phone'))
-              <p style="color:red"> {{ $errors->first('depart_phone')}}</p>
-              @endif
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Số nhân viên <span class="required">*</span>
-              </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="number" value="{{old('depart_number_persion')}}" name="depart_number_persion" class="form-control">
+                <input type="text" value="{{old('department_name')}}" class="form-control" name="department_name">
+                <span class="text-red">{{$errors->first('department_name')}}</span>
               </div>
             </div>
             <div class="form-group">
-              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Ghi chú <span class="required">*</span></label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại <span class="text-red">*</span>
+              </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="form-control" type="text" name="depart_note">{{old('depart_note')}}</textarea>
+                <input type="text" value="{{old('department_phone')}}" name="department_phone" class="form-control">
+                <span class="text-red">{{$errors->first('department_phone')}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Số nhân viên <span class="text-red">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" value="{{old('department_number_person')}}" name="department_number_person" class="form-control">
+                <span class="text-red">{{$errors->first('department_number_person')}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Ghi chú &nbsp;</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="form-control" type="text" rows="10" name="department_note">{{old('department_note')}}</textarea>
+                <span class="text-red">{{$errors->first('department_note')}}</span>
               </div>
             </div>
             <div class="form-group">

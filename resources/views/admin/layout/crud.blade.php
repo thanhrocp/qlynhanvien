@@ -47,7 +47,7 @@
     $(function(){
 		$('.delete_part').click(function(){
 			var id = $(this).data('id');
-			var url ="{{url('departments/delete')}}/"+id;
+			var url ="{{url('department/delete')}}/"+id;
 			Swal.fire({
 				title: "{{__('messages.common.confirm')}}",
 				text: "You won't be able to revert this!",
@@ -61,11 +61,9 @@
 					$.ajax({
 						url:url,
 						type:'GET',
-						data:{"id":id},
-						success:function(data)
-						{
-							if(data.success)
-							{
+						data:{'id': id},
+						success:function(data) {
+							if(data.success) {
 								Swal.fire({
 									type: 'success',
 									title:"Thông báo",
@@ -75,9 +73,7 @@
                                 setTimeout(() => {
                                     window.location.reload();
                                 }, 800)
-							}
-							else
-							{
+							} else {
 								Swal.fire({
 									type: 'error',
 									title:"Thông báo",
@@ -86,8 +82,7 @@
 								});
 							}
 						},
-						error:function()
-						{
+						error:function() {
 							Swal.fire({
 								type: 'error',
 								title:"Thông báo",

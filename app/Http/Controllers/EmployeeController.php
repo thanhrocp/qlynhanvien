@@ -19,7 +19,7 @@ class EmployeeController extends Controller
 		return Employee::join('departments', 'employees.depart_id', '=', 'departments.id')
 		->select(DB::raw('CONCAT(employees.first_name," ",employees.last_name) as full_name'),
 			DB::raw('CASE WHEN employees.gender=1 THEN "Nam" ELSE "Nữ" END as sex'),
-			'employees.*', 'departments.depart_name');
+			'employees.*', 'departments.department_name');
 	}
 	/*-------------show list-------------*/
 	public function index()

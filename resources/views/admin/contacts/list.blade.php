@@ -82,7 +82,7 @@
 
  									<div class="col-sm-12">
 
- 										<h4 class="brief"><i>{{ $info->depart_name }}</i></h4>
+ 										<h4 class="brief"><i>{{ $info->department_name }}</i></h4>
 
  										<div class="left col-xs-/">
 

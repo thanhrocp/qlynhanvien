@@ -2,7 +2,6 @@
 
 namespace App\Http\Repositories;
 
-use App\Models\Department;
 use App\Models\Role;
 
 class RoleRepository

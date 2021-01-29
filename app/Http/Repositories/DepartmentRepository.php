@@ -4,18 +4,25 @@ namespace App\Http\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Department;
+use Illuminate\Http\Request;
 
 class DepartmentRepository
 {
     /**
      * get a list of departments
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getList()
+    public function getList(Request $request)
     {
         $department = new Department();
-        $results =  $department->orderBy('id','desc')->paginate(10);
+        if (!is_null($request['show_record'])) {
+            $showRecord = $request['show_record'];
+        } else {
+            $showRecord = config('const.SYSTEM.DEFAULT_ROW');
+        }
+        $results =  $department->orderBy('id','desc')->paginate($showRecord);
         return $results;
     }
 

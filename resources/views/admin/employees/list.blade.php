@@ -61,7 +61,7 @@
                   <input type="checkbox" class="flat" name="table_records">
                 </td>
                 <td>{{ ++$key }}</td>
-                <td>{{ $lt->depart_name }}</td>
+                <td>{{ $lt->department_name }}</td>
                 <td>{{ $lt->full_name }}</td>
                 <td>
                   <?php
@@ -87,7 +87,7 @@
                         <h4 class="modal-title text-center">Thông tin nhân viên</h4>
                       </div>
                       <div class="modal-body">
-                        <span style="color:red">Bộ phận : </span>{{ $lt->depart_name }}<br/>
+                        <span style="color:red">Bộ phận : </span>{{ $lt->department_name }}<br/>
                         <span style="color:red">Họ Tên : </span> {{ $lt->full_name }}<br/>
                         <span style="color:red">Ngày sinh : </span> {{ $lt->birth_date }}<br/>
                         <span style="color:red">Giới tính : </span> {{ $lt->sex }}<br/>

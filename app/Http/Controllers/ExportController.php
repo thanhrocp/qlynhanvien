@@ -22,7 +22,7 @@ class ExportController extends Controller implements FromCollection, WithHeading
 				'0' => ++$no,
 				'1' => $row->work_code,
 				'2' => $row->full_name,
-				'3' => $row->depart_name,
+				'3' => $row->department_name,
 				'4' => $row->position,
 				'5' => $row->birth_date,
 				'6' => $row->work_email,
