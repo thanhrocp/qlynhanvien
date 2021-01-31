@@ -75,4 +75,14 @@ class Department extends ModelBase
      * @var array
      */
     protected $casts = [];
+
+    /**
+     * Searchable properties
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'department_name',
+        'department_phone',
+    ];
 }

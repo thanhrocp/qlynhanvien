@@ -37,7 +37,7 @@
   <!--===============================================================================================-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
   <!--===============================================================================================-->
-  <link href="master/build/css/masterStyle.css" rel="stylesheet">
+  <link href="master/build/css/master-style.css" rel="stylesheet">
   @yield('css')
 </head>
 <body class="nav-md">

@@ -50,8 +50,8 @@
             </div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="submit" class="btn btn-success">Lưu</button>
-                <button type="reset" class="btn btn-danger">Hủy</button>
+                <button type="submit" class="btn btn-danger">Lưu</button>
+                <button type="reset" class="btn btn-outline-secondary">Hủy</button>
               </div>
             </div>
             {{CsrfTokenUtil::csrfToken()}}

@@ -13,12 +13,21 @@ use Illuminate\Support\Facades\Auth;
 abstract class ModelBase extends Model
 {
     /**
-	 * The attributes that should be hidden for arrays.
-	 *
-	 * @var array
-	 */
-	protected $hidden = [
-    ];
+     * Get searchable properties
+     *
+     * @return array
+     */
+    public function getSearchable()
+    {
+        return $this->searchable;
+    }
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [];
 
     /**
      * Update information automatically

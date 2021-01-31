@@ -17,12 +17,18 @@ class DepartmentRepository
     public function getList(Request $request)
     {
         $department = new Department();
-        if (!is_null($request['show_record'])) {
-            $showRecord = $request['show_record'];
+        if (!is_null($request['page_limit'])) {
+            $pageLimit = $request['page_limit'];
         } else {
-            $showRecord = config('const.SYSTEM.DEFAULT_ROW');
+            $pageLimit = config('const.SYSTEM.DEFAULT_ROW');
         }
-        $results =  $department->orderBy('id','desc')->paginate($showRecord);
+        $results = $department
+            ->when($request['search_key'], function ($query, $val) {
+                $query->where('department_name', 'like', '%'.$val.'%');
+                $query->orWhere('department_phone', 'like', '%'.$val.'%');
+            })
+            ->orderBy('id', 'desc')
+            ->paginate($pageLimit);
         return $results;
     }
 
@@ -81,7 +87,7 @@ class DepartmentRepository
      * Delete department
      *
      * @param string $departmentId
-     * @return string $id
+     * @return string
      */
     public function delete(string $departmentId)
     {

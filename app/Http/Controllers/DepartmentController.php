@@ -19,10 +19,11 @@ class DepartmentController extends AdminControllerBase
 	{
 		$departmentRepository = new DepartmentRepository();
         $result = $departmentRepository->getList($request);
-        $showRecord = $request['show_record'] ?? config('const.SYSTEM.DEFAULT_ROW');
+        $pageLimit = $request['page_limit'] ?? config('const.SYSTEM.DEFAULT_ROW');
         $viewAssign = [
             'result' => $result,
-            'show_record' => $showRecord,
+            'page_limit' => $pageLimit,
+            'search_key' => $request['search_key'],
         ];
         $request->flash();
 		return view(config('const.SYSTEM.ADMIN') . '.departments.list', $viewAssign);
@@ -38,10 +39,11 @@ class DepartmentController extends AdminControllerBase
 	{
 		$departmentRepository = new DepartmentRepository();
         $result = $departmentRepository->getList($request);
-        $showRecord = $request['show_record'] ?? config('const.SYSTEM.DEFAULT_ROW');
+        $pageLimit = $request['page_limit'] ?? config('const.SYSTEM.DEFAULT_ROW');
         $viewAssign = [
             'result' => $result,
-            'show_record' => $showRecord,
+            'page_limit' => $pageLimit,
+            'search_key' => $request['search_key'],
         ];
 		return view(config('const.SYSTEM.ADMIN') . '.departments.list', $viewAssign);
 	}
