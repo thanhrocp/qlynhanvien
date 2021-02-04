@@ -45,7 +45,7 @@
 </script>
 <script type="text/javascript">
     $(function(){
-		$('.delete_part').click(function(){
+		$('.remove_department').click(function(){
 			var id = $(this).data('id');
 			var url ="{{url('department/delete')}}/"+id;
 			Swal.fire({
